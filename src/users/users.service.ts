@@ -12,23 +12,29 @@ export class UsersService {
     private readonly userRepository: Repository<User>
   ) { }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const date = new Date().toISOString();
+    let data = {
+      ...createUserDto,
+      createdAt: date,
+      updatedAt: date,
+    }
+    return await this.userRepository.save(data);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    return await this.userRepository.findOne({ userid: id });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    return await this.userRepository.update({ userid: id }, updateUserDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    return await this.userRepository.delete({ userid: id });
   }
 }
