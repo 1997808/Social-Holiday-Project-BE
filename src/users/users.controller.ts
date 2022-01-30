@@ -14,12 +14,12 @@ export class UsersController {
 
   @Get()
   async findAll() {
-    return await this.usersService.findAll();
+    return await this.usersService.index();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.usersService.findOneById(+id);
+    return await this.usersService.findById(+id);
   }
 
   @Patch(':id')
@@ -29,6 +29,6 @@ export class UsersController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.usersService.remove(+id);
+    return await this.usersService.delete(+id);
   }
 }

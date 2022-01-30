@@ -5,13 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IUser } from './entities/user.interface';
 import { User } from './entities/user.entity';
+import { BaseService } from 'src/common/base.service';
 
 @Injectable()
-export class UsersService {
+export class UsersService extends BaseService<User> {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>
-  ) { }
+    @InjectRepository(User) repository: Repository<User>
+  ) {
+    super(repository)
+  }
 
   async create(createUserDto: CreateUserDto): Promise<IUser> {
     const date = new Date().toISOString();
@@ -20,26 +22,6 @@ export class UsersService {
       createdAt: date,
       updatedAt: date,
     }
-    return await this.userRepository.save(data);
-  }
-
-  async findAll(): Promise<IUser[]> {
-    return await this.userRepository.find();
-  }
-
-  async findOneById(id: number): Promise<IUser> {
-    return await this.userRepository.findOne({ userid: id });
-  }
-
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.userRepository.update({ userid: id }, updateUserDto);
-  }
-
-  async remove(id: number) {
-    return await this.userRepository.delete({ userid: id });
-  }
-
-  async findOne(opts: any = {}): Promise<IUser> {
-    return await this.userRepository.findOne(opts);
+    return await this.repository.save(data);
   }
 }
