@@ -4,5 +4,5 @@ export interface CreatePostDto {
   content: string;
   // createdAt: Date;
   // updatedAt: Date;
-  imageUrl: string;
+  imageUrl: string[];
 }

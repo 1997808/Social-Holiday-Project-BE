@@ -3,10 +3,8 @@ import { EntityId } from 'typeorm/repository/EntityId'
 import { BaseEntity, DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
-export class BaseService<T, R extends Repository<T>> {
-  constructor(
-    protected readonly repository: R,
-  ) {
+export class BaseService<T> {
+  constructor(protected readonly repository: Repository<T>) {
     this.repository = repository
   }
 
