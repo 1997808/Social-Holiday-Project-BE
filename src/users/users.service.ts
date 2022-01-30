@@ -27,7 +27,7 @@ export class UsersService {
     return await this.userRepository.find();
   }
 
-  async findOne(id: number): Promise<IUser> {
+  async findOneById(id: number): Promise<IUser> {
     return await this.userRepository.findOne({ userid: id });
   }
 
@@ -37,5 +37,9 @@ export class UsersService {
 
   async remove(id: number) {
     return await this.userRepository.delete({ userid: id });
+  }
+
+  async findOne(opts: any = {}): Promise<IUser> {
+    return await this.userRepository.findOne(opts);
   }
 }
