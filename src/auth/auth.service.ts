@@ -12,14 +12,14 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
+  // async validateUser(username: string, pass: string): Promise<any> {
+  //   const user = await this.usersService.findOne(username);
+  //   if (user && user.password === pass) {
+  //     const { password, ...result } = user;
+  //     return result;
+  //   }
+  //   return null;
+  // }
 
   async login(payload: LoginDto) {
     const { email, password } = payload;
@@ -39,7 +39,7 @@ export class AuthService {
   public async create(user: CreateUserDto) {
     const pass = await this.hashPassword(user.password);
     const newUser = await this.usersService.create({ ...user, password: pass });
-    const { password, ...result } = newUser['dataValues'];
+    const { password, ...result } = newUser;
     const token = await this.generateToken(result);
     return { user: result, token };
   }
