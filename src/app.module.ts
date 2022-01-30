@@ -16,6 +16,7 @@ import { SearchModule } from './search/search.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
+
       //synchronize: true, // shouldn't be used in production - may lose data
     }),
     UsersModule,
