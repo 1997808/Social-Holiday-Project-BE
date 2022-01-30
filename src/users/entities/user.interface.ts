@@ -1,4 +1,4 @@
-export class User {
+export interface IUser {
   userid: number;
   name: string;
   username: string;

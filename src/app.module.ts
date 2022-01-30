@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { SearchModule } from './search/search.module';
+import { PostsModule } from './posts/post.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,11 +18,12 @@ import { SearchModule } from './search/search.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
-
       //synchronize: true, // shouldn't be used in production - may lose data
     }),
+    SearchModule,
+    PostsModule,
     UsersModule,
-    SearchModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
