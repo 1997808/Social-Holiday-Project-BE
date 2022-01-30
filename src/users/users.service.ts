@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { IUser } from './entities/user.interface';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class UsersService {
     private readonly userRepository: Repository<User>
   ) { }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<IUser> {
     const date = new Date().toISOString();
     let data = {
       ...createUserDto,
@@ -22,11 +23,11 @@ export class UsersService {
     return await this.userRepository.save(data);
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<IUser[]> {
     return await this.userRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<IUser> {
     return await this.userRepository.findOne({ userid: id });
   }
 

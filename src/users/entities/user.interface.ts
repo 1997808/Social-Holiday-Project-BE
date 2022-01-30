@@ -1,4 +1,4 @@
-export class UserDto {
+export interface IUser {
   userid: number;
   name: string;
   username: string;
