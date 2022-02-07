@@ -8,6 +8,7 @@ import { PostsModule } from './posts/post.module';
 import { AuthModule } from './auth/auth.module';
 import { MessagesModule } from './messages/messages.module';
 import { ConversationsModule } from './conversations/conversations.module';
+import { ParticipantsModule } from './participants/participants.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ConversationsModule } from './conversations/conversations.module';
     AuthModule,
     MessagesModule,
     ConversationsModule,
+    ParticipantsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
