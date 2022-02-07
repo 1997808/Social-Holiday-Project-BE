@@ -12,6 +12,8 @@ import { ParticipantsModule } from './participants/participants.module';
 import { CommentsModule } from './comments/comments.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { LikecommentsModule } from './likecomments/likecomments.module';
+import { LikepostsModule } from './likeposts/likeposts.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     CommentsModule,
     FriendshipsModule,
     NotificationsModule,
+    LikecommentsModule,
+    LikepostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
