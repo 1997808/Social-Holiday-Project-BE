@@ -10,6 +10,7 @@ import { MessagesModule } from './messages/messages.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ParticipantsModule } from './participants/participants.module';
 import { CommentsModule } from './comments/comments.module';
+import { FriendshipsModule } from './friendships/friendships.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CommentsModule } from './comments/comments.module';
     ConversationsModule,
     ParticipantsModule,
     CommentsModule,
+    FriendshipsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
