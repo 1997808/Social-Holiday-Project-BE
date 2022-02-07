@@ -23,7 +23,7 @@ export class Message {
   @Column()
   status: string;
 
-  @Column()
+  @Column("int", { array: true })
   read_participant: number[];
 
   @Column()

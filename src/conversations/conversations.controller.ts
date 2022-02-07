@@ -5,7 +5,7 @@ import { UpdateConversationDto } from './dto/update-conversation.dto';
 
 @Controller('conversations')
 export class ConversationsController {
-  constructor(private readonly conversationsService: ConversationsService) {}
+  constructor(private readonly conversationsService: ConversationsService) { }
 
   @Post()
   create(@Body() createConversationDto: CreateConversationDto) {
@@ -29,6 +29,6 @@ export class ConversationsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.conversationsService.remove(+id);
+    return this.conversationsService.delete(+id);
   }
 }

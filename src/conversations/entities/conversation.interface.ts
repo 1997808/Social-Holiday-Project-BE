@@ -1,4 +1,4 @@
-export class CreateConversationDto {
+export interface IConversation {
   conversationid: number;
   title: string;
   creator: number;

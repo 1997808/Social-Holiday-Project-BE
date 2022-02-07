@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BaseService } from 'src/common/base.service';
+import { Repository } from 'typeorm';
 import { CreateConversationDto } from './dto/create-conversation.dto';
 import { UpdateConversationDto } from './dto/update-conversation.dto';
+import { Conversation } from './entities/conversation.entity';
+import { IConversation } from './entities/conversation.interface';
 
 @Injectable()
-export class ConversationsService {
-  create(createConversationDto: CreateConversationDto) {
-    return 'This action adds a new conversation';
+export class ConversationsService extends BaseService<Conversation> {
+  constructor(
+    @InjectRepository(Conversation) repository: Repository<Conversation>
+  ) {
+    super(repository)
   }
-
-  findAll() {
-    return `This action returns all conversations`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} conversation`;
-  }
-
-  update(id: number, updateConversationDto: UpdateConversationDto) {
-    return `This action updates a #${id} conversation`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} conversation`;
+  async create(createConversationDto: CreateConversationDto): Promise<IConversation> {
+    const date = new Date().toISOString();
+    let data = {
+      ...createConversationDto,
+      createdAt: date,
+      updatedAt: date,
+    }
+    return await this.repository.save(data);
   }
 }

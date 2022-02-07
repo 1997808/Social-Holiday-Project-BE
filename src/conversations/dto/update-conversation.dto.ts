@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateConversationDto } from './create-conversation.dto';
-
-export class UpdateConversationDto extends PartialType(CreateConversationDto) {}
+export class UpdateConversationDto {
+  readonly conversationid: number;
+  readonly title: string;
+  readonly creator: number;
+  readonly type?: string;
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
+}
