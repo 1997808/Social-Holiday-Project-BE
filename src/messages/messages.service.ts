@@ -9,18 +9,16 @@ import { IMessage } from './entities/message.interface';
 
 @Injectable()
 export class MessagesService extends BaseService<Message> {
-  constructor(
-    @InjectRepository(Message) repository: Repository<Message>
-  ) {
-    super(repository)
+  constructor(@InjectRepository(Message) repository: Repository<Message>) {
+    super(repository);
   }
   async create(createMessageDto: CreateMessageDto): Promise<IMessage> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createMessageDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

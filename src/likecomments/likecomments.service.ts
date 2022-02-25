@@ -10,17 +10,19 @@ import { ILikecomment } from './entities/likecomment.interface';
 @Injectable()
 export class LikecommentsService extends BaseService<Likecomment> {
   constructor(
-    @InjectRepository(Likecomment) repository: Repository<Likecomment>
+    @InjectRepository(Likecomment) repository: Repository<Likecomment>,
   ) {
-    super(repository)
+    super(repository);
   }
-  async create(createLikecommentDto: CreateLikecommentDto): Promise<ILikecomment> {
+  async create(
+    createLikecommentDto: CreateLikecommentDto,
+  ): Promise<ILikecomment> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createLikecommentDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

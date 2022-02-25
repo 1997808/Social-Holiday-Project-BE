@@ -23,6 +23,6 @@ export class Post {
   @Column()
   updatedAt: Date;
 
-  @Column("text", { array: true })
+  @Column('text', { array: true })
   imageUrl: string[];
 }

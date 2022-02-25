@@ -7,6 +7,6 @@ import { Friendship } from './entities/friendship.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Friendship])],
   controllers: [FriendshipsController],
-  providers: [FriendshipsService]
+  providers: [FriendshipsService],
 })
-export class FriendshipsModule { }
+export class FriendshipsModule {}

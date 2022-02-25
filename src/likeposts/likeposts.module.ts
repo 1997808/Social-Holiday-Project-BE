@@ -7,6 +7,6 @@ import { Likepost } from './entities/likepost.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Likepost])],
   controllers: [LikepostsController],
-  providers: [LikepostsService]
+  providers: [LikepostsService],
 })
-export class LikepostsModule { }
+export class LikepostsModule {}

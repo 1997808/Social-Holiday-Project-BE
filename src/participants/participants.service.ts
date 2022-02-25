@@ -10,17 +10,19 @@ import { IParticipant } from './entities/participant.interface';
 @Injectable()
 export class ParticipantsService extends BaseService<Participant> {
   constructor(
-    @InjectRepository(Participant) repository: Repository<Participant>
+    @InjectRepository(Participant) repository: Repository<Participant>,
   ) {
-    super(repository)
+    super(repository);
   }
-  async create(createParticipantDto: CreateParticipantDto): Promise<IParticipant> {
+  async create(
+    createParticipantDto: CreateParticipantDto,
+  ): Promise<IParticipant> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createParticipantDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

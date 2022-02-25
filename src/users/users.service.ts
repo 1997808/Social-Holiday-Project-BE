@@ -9,19 +9,17 @@ import { BaseService } from 'src/common/base.service';
 
 @Injectable()
 export class UsersService extends BaseService<User> {
-  constructor(
-    @InjectRepository(User) repository: Repository<User>
-  ) {
-    super(repository)
+  constructor(@InjectRepository(User) repository: Repository<User>) {
+    super(repository);
   }
 
   async create(createUserDto: CreateUserDto): Promise<IUser> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createUserDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

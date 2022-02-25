@@ -7,6 +7,6 @@ import { Participant } from './entities/participant.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Participant])],
   controllers: [ParticipantsController],
-  providers: [ParticipantsService]
+  providers: [ParticipantsService],
 })
-export class ParticipantsModule { }
+export class ParticipantsModule {}

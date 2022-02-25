@@ -10,17 +10,19 @@ import { INotification } from './entities/notification.interface';
 @Injectable()
 export class NotificationsService extends BaseService<Notification> {
   constructor(
-    @InjectRepository(Notification) repository: Repository<Notification>
+    @InjectRepository(Notification) repository: Repository<Notification>,
   ) {
-    super(repository)
+    super(repository);
   }
-  async create(createNotificationDto: CreateNotificationDto): Promise<INotification> {
+  async create(
+    createNotificationDto: CreateNotificationDto,
+  ): Promise<INotification> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createNotificationDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

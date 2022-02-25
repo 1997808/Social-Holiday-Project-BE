@@ -7,6 +7,6 @@ import { Conversation } from './entities/conversation.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Conversation])],
   controllers: [ConversationsController],
-  providers: [ConversationsService]
+  providers: [ConversationsService],
 })
-export class ConversationsModule { }
+export class ConversationsModule {}

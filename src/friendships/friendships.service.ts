@@ -10,17 +10,17 @@ import { IFriendship } from './entities/friendship.interface';
 @Injectable()
 export class FriendshipsService extends BaseService<Friendship> {
   constructor(
-    @InjectRepository(Friendship) repository: Repository<Friendship>
+    @InjectRepository(Friendship) repository: Repository<Friendship>,
   ) {
-    super(repository)
+    super(repository);
   }
   async create(createFriendshipDto: CreateFriendshipDto): Promise<IFriendship> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createFriendshipDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

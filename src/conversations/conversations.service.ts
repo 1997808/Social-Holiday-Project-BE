@@ -10,17 +10,19 @@ import { IConversation } from './entities/conversation.interface';
 @Injectable()
 export class ConversationsService extends BaseService<Conversation> {
   constructor(
-    @InjectRepository(Conversation) repository: Repository<Conversation>
+    @InjectRepository(Conversation) repository: Repository<Conversation>,
   ) {
-    super(repository)
+    super(repository);
   }
-  async create(createConversationDto: CreateConversationDto): Promise<IConversation> {
+  async create(
+    createConversationDto: CreateConversationDto,
+  ): Promise<IConversation> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createConversationDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

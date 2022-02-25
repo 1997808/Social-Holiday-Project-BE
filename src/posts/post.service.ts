@@ -9,19 +9,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PostService extends BaseService<Post> {
-  constructor(
-    @InjectRepository(Post) repository: Repository<Post>
-  ) {
-    super(repository)
+  constructor(@InjectRepository(Post) repository: Repository<Post>) {
+    super(repository);
   }
 
   async create(createPostDto: CreatePostDto): Promise<IPost> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createPostDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }

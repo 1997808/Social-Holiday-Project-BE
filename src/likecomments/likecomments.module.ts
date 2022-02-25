@@ -7,6 +7,6 @@ import { Likecomment } from './entities/likecomment.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Likecomment])],
   controllers: [LikecommentsController],
-  providers: [LikecommentsService]
+  providers: [LikecommentsService],
 })
-export class LikecommentsModule { }
+export class LikecommentsModule {}

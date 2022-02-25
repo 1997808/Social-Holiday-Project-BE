@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { EntityId } from 'typeorm/repository/EntityId'
+import { EntityId } from 'typeorm/repository/EntityId';
 import { BaseEntity, DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class BaseService<T> {
   constructor(protected readonly repository: Repository<T>) {
-    this.repository = repository
+    this.repository = repository;
   }
 
   async index(): Promise<T[]> {
-    return await this.repository.find()
+    return await this.repository.find();
   }
 
   async findById(id: EntityId): Promise<T> {
-    return await this.repository.findOne(id)
+    return await this.repository.findOne(id);
   }
 
   async findByIds(ids: [EntityId]): Promise<T[]> {
-    return await this.repository.findByIds(ids)
+    return await this.repository.findByIds(ids);
   }
 
   async findOne(opts: any = {}): Promise<T> {

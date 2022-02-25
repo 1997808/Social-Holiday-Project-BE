@@ -9,18 +9,16 @@ import { IComment } from './entities/comment.interface';
 
 @Injectable()
 export class CommentsService extends BaseService<Comment> {
-  constructor(
-    @InjectRepository(Comment) repository: Repository<Comment>
-  ) {
-    super(repository)
+  constructor(@InjectRepository(Comment) repository: Repository<Comment>) {
+    super(repository);
   }
   async create(createCommentDto: CreateCommentDto): Promise<IComment> {
     const date = new Date().toISOString();
-    let data = {
+    const data = {
       ...createCommentDto,
       createdAt: date,
       updatedAt: date,
-    }
+    };
     return await this.repository.save(data);
   }
 }
