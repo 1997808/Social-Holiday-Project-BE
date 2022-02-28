@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Notification {
   @PrimaryGeneratedColumn()
-  notificationid: number;
+  id: number;
 
   @Column()
   userid: number;

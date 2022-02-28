@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Likepost {
   @PrimaryGeneratedColumn()
-  likeid: number;
+  id: number;
 
   @Column()
   postid: number;

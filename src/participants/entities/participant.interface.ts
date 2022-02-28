@@ -1,5 +1,5 @@
 export interface IParticipant {
-  participantid: number;
+  id: number;
   conversationid: number;
   userid: number;
 }

@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Message {
   @PrimaryGeneratedColumn()
-  messageid: number;
+  id: number;
 
   @Column()
   author: number;

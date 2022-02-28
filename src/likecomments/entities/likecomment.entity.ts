@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Likecomment {
   @PrimaryGeneratedColumn()
-  likecommentid: number;
+  id: number;
 
   @Column()
   commentid: number;

@@ -5,16 +5,18 @@ import {
   ManyToMany,
   OneToMany,
 } from 'typeorm';
+import { Post } from 'src/posts/entities/post.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
-  messageid: number;
+  id: number;
 
-  @Column()
+  @OneToMany(() => User, (user) => user.id)
   author: number;
 
-  @Column()
+  @OneToMany(() => Post, (post) => post.id)
   postid: number;
 
   @Column()

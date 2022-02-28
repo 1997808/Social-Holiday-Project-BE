@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Conversation {
   @PrimaryGeneratedColumn()
-  conversationid: number;
+  id: number;
 
   @Column()
   title: string;

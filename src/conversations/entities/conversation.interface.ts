@@ -1,5 +1,5 @@
 export interface IConversation {
-  conversationid: number;
+  id: number;
   title: string;
   creator: number;
   type: string;

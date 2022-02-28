@@ -1,5 +1,5 @@
 export interface ILikecomment {
-  likecommentid: number;
+  id: number;
   commentid: number;
   userid: number;
 }

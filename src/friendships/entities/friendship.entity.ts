@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Friendship {
   @PrimaryGeneratedColumn()
-  friendshipid: number;
+  id: number;
 
   @Column()
   userid1: number;
