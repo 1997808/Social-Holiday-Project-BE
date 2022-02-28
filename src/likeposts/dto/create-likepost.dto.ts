@@ -1,5 +1,5 @@
 export class CreateLikepostDto {
-  likeid: number;
+  id: number;
   postid: number;
   userid: number;
 }

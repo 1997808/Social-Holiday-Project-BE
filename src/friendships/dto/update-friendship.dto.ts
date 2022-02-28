@@ -1,5 +1,5 @@
 export class UpdateFriendshipDto {
-  readonly friendshipid: number;
+  readonly id: number;
   readonly userid1: number;
   readonly userid2: number;
   // requestedDate: Date;

@@ -1,5 +1,5 @@
 export class CreateLikecommentDto {
-  likecommentid: number;
+  id: number;
   commentid: number;
   userid: number;
 }

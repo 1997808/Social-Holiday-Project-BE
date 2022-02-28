@@ -1,5 +1,5 @@
 export class UpdateLikecommentDto {
-  readonly likecommentid: number;
+  readonly id: number;
   readonly commentid: number;
   readonly userid: number;
 }

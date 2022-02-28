@@ -1,5 +1,5 @@
 export class CreateConversationDto {
-  conversationid: number;
+  id: number;
   title: string;
   creator: number;
   type: string;

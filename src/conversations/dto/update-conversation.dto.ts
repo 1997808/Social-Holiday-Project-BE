@@ -1,5 +1,5 @@
 export class UpdateConversationDto {
-  readonly conversationid: number;
+  readonly id: number;
   readonly title: string;
   readonly creator: number;
   readonly type?: string;

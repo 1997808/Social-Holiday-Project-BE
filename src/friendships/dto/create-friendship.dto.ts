@@ -1,5 +1,5 @@
 export class CreateFriendshipDto {
-  friendshipid: number;
+  id: number;
   userid1: number;
   userid2: number;
   requestedDate: Date;

@@ -1,5 +1,5 @@
 export class CreateNotificationDto {
-  notificationid: number;
+  id: number;
   userid: number;
   content: string;
   contentUrl: string;

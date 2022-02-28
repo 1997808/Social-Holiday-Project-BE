@@ -1,5 +1,5 @@
 export class PostDto {
-  readonly postid: number;
+  readonly id: number;
   readonly author: number;
   readonly content: string;
   // readonly createdAt: Date;

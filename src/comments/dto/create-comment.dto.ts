@@ -1,5 +1,5 @@
 export class CreateCommentDto {
-  messageid: number;
+  id: number;
   author: number;
   postid: number;
   content: string;

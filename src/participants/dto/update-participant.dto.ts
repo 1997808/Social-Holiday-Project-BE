@@ -1,5 +1,5 @@
 export class UpdateParticipantDto {
-  participantid: number;
+  id: number;
   conversationid: number;
   userid: number;
 }
