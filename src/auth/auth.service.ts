@@ -39,6 +39,17 @@ export class AuthService {
     return 'error';
   }
 
+  async checkLogin(request) {
+    const jwt = request.headers.authorization.replace('Bearer ', '');
+    if (jwt !== 'null') {
+      const data = await this.jwtService.verifyAsync(jwt);
+      if (data) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public async create(user: CreateUserDto) {
     const pass = await this.hashPassword(user.password);
     const newUser = await this.usersService.create({ ...user, password: pass });
