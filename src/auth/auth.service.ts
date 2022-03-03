@@ -32,7 +32,7 @@ export class AuthService {
           username: user.username,
         });
         return {
-          access_token: result,
+          accessToken: result,
         };
       }
     }
@@ -55,7 +55,7 @@ export class AuthService {
     const newUser = await this.usersService.create({ ...user, password: pass });
     const { password, ...result } = newUser;
     const token = await this.generateToken(result);
-    return { user: result, token };
+    return { user: result, accessToken: token };
   }
 
   private async generateToken(user) {
