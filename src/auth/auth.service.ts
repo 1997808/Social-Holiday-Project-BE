@@ -32,6 +32,7 @@ export class AuthService {
           username: user.username,
         });
         return {
+          user,
           accessToken: result,
         };
       }
@@ -44,7 +45,9 @@ export class AuthService {
     if (jwt !== 'null') {
       const data = await this.jwtService.verifyAsync(jwt);
       if (data) {
-        return true;
+        const user = await this.usersService.findById(data.id);
+        const { password, ...result } = user;
+        return { user: result };
       }
     }
     return false;

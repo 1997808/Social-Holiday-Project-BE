@@ -1,16 +1,12 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ManyToMany(() => User, (user) => user.id)
   @Column()
   author: number;
 
