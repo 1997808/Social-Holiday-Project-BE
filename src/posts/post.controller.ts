@@ -29,6 +29,12 @@ export class PostController {
     return await this.postService.findAll();
   }
 
+  // @UseGuards(JwtAuthGuard)
+  // @Get('all')
+  // async findAllPost(@Body() query) {
+  //   return await this.postService.findAllPost(query);
+  // }
+
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {

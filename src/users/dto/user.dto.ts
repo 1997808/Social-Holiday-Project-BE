@@ -9,3 +9,9 @@ export class UserDto {
   // readonly updatedAt: Date;
   readonly profilePictureUrl: string;
 }
+
+export class UserQueryDto {
+  readonly take?: number;
+  readonly page?: number;
+  readonly keyword: string;
+}

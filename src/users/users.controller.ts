@@ -12,6 +12,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { UserQueryDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -26,6 +27,12 @@ export class UsersController {
   @Get()
   async findAll() {
     return await this.usersService.index();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('all')
+  async findUserByName(@Body() query: UserQueryDto) {
+    return await this.usersService.findUserByName(query);
   }
 
   @UseGuards(JwtAuthGuard)

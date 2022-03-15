@@ -9,3 +9,8 @@ export interface IUser {
   updatedAt: Date;
   profilePictureUrl: string;
 }
+
+export interface IUserPaginate {
+  data: IUser[];
+  count: number;
+}

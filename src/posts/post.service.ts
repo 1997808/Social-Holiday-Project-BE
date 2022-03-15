@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { IPost } from './entities/post.interface';
 import { Post } from './entities/post.entity';
 import { BaseService } from 'src/common/base.service';
@@ -22,4 +22,20 @@ export class PostService extends BaseService<Post> {
     };
     return await this.repository.save(data);
   }
+
+  // async findAllPost(query): Promise<any> {
+  //   const take = query.take || 10;
+  //   const skip = query.skip || 0;
+
+  //   const [result, total] = await this.repository.findAndCount({
+  //     where: { order: { createdAt: 'DESC' } },
+  //     take,
+  //     skip,
+  //   });
+
+  //   return {
+  //     data: result,
+  //     count: total,
+  //   };
+  // }
 }

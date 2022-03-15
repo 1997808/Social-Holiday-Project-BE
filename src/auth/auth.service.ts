@@ -41,13 +41,15 @@ export class AuthService {
   }
 
   async checkLogin(request) {
-    const jwt = request.headers.authorization.replace('Bearer ', '');
-    if (jwt !== 'null') {
-      const data = await this.jwtService.verifyAsync(jwt);
-      if (data) {
-        const user = await this.usersService.findById(data.id);
-        const { password, ...result } = user;
-        return { user: result };
+    if (request.headers.authorization) {
+      const jwt = request.headers.authorization.replace('Bearer ', '');
+      if (jwt !== 'null') {
+        const data = await this.jwtService.verifyAsync(jwt);
+        if (data) {
+          const user = await this.usersService.findById(data.id);
+          const { password, ...result } = user;
+          return { user: result };
+        }
       }
     }
     return false;
