@@ -18,6 +18,9 @@ export class Friendship {
   userid2: number;
 
   @Column()
+  status: string;
+
+  @Column()
   requestedDate: Date;
 
   @Column()
