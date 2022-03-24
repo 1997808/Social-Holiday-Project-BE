@@ -1,10 +1,5 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Friendship {
@@ -12,9 +7,11 @@ export class Friendship {
   id: number;
 
   @Column()
+  @ManyToOne(() => User, (user) => user.id)
   userid1: number;
 
   @Column()
+  @ManyToOne(() => User, (user) => user.id)
   userid2: number;
 
   @Column()

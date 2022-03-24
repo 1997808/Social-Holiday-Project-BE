@@ -1,9 +1,11 @@
+import { Post } from 'src/posts/entities/post.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
   ManyToMany,
-  OneToMany,
+  Column,
 } from 'typeorm';
 
 @Entity()
@@ -12,8 +14,10 @@ export class Likepost {
   id: number;
 
   @Column()
+  @ManyToOne(() => Post, (post) => post.id)
   postid: number;
 
   @Column()
+  @ManyToMany(() => User, (user) => user.id)
   userid: number;
 }

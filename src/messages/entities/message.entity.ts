@@ -1,10 +1,6 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
+import { Conversation } from 'src/conversations/entities/conversation.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Message {
@@ -12,9 +8,11 @@ export class Message {
   id: number;
 
   @Column()
+  @ManyToOne(() => User, (user) => user.id)
   author: number;
 
   @Column()
+  @ManyToOne(() => Conversation, (conversation) => conversation.id)
   conversationid: number;
 
   @Column()
@@ -23,8 +21,8 @@ export class Message {
   @Column()
   status: string;
 
-  @Column('int', { array: true })
-  read_participant: number[];
+  // @Column('int', { array: true })
+  // read_participant: number[];
 
   @Column()
   createdAt: Date;
@@ -32,6 +30,7 @@ export class Message {
   @Column()
   updatedAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
+  @ManyToOne(() => User, (user) => user.id)
   replyTo: number;
 }

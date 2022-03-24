@@ -1,10 +1,5 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Notification {
@@ -12,12 +7,13 @@ export class Notification {
   id: number;
 
   @Column()
+  @ManyToOne(() => User, (user) => user.id)
   userid: number;
 
   @Column()
   content: string;
 
-  @Column()
+  @Column({ nullable: true })
   contentUrl: string;
 
   @Column()
