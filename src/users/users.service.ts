@@ -24,6 +24,15 @@ export class UsersService extends BaseService<User> {
     return await this.repository.save(data);
   }
 
+  async findUserWithPassword(email: string): Promise<IUser> {
+    return await this.repository.findOne(
+      { email },
+      {
+        select: ['id', 'name', 'username', 'email', 'password'],
+      },
+    );
+  }
+
   async findUserByName(query: UserQueryDto): Promise<IUserPaginate> {
     const take = query.take || 10;
     const page = query.page || 1;

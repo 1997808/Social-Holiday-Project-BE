@@ -21,10 +21,19 @@ export class AuthService {
   //   return null;
   // }
 
+  async checkUserExist(payload) {
+    const { email } = payload;
+    const user = await this.usersService.findOne({ email });
+    if (user) {
+      return true;
+    }
+    return false;
+  }
+
   async login(payload: LoginDto) {
     const { email, password } = payload;
     let result;
-    const user = await this.usersService.findOne({ email });
+    const user = await this.usersService.findUserWithPassword(email);
     if (user) {
       if (await this.comparePassword(password, user.password)) {
         result = this.jwtService.sign({
@@ -55,11 +64,20 @@ export class AuthService {
   }
 
   public async create(user: CreateUserDto) {
-    const pass = await this.hashPassword(user.password);
-    const newUser = await this.usersService.create({ ...user, password: pass });
-    const { password, ...result } = newUser;
-    const token = await this.generateToken(result);
-    return { user: result, accessToken: token };
+    if (this.checkUserExist(user)) {
+      return { message: 'User already existed' };
+    } else {
+      const pass = await this.hashPassword(user.password);
+      const newUser = await this.usersService.create({
+        ...user,
+        password: pass,
+      });
+      if (newUser) {
+        return { message: 'success' };
+      } else {
+        return { message: 'failed' };
+      }
+    }
   }
 
   private async generateToken(user) {

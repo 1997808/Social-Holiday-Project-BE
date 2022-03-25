@@ -4,5 +4,5 @@ export class PostDto {
   readonly content: string;
   // readonly createdAt: Date;
   // readonly updatedAt: Date;
-  readonly imageUrl: string;
+  readonly imageUrl?: string;
 }

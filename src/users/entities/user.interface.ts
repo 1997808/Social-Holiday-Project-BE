@@ -3,11 +3,11 @@ export interface IUser {
   name: string;
   username: string;
   email: string;
-  password: string;
-  profile: string;
+  password?: string;
+  profile?: string;
   createdAt: Date;
   updatedAt: Date;
-  profilePictureUrl: string;
+  profilePictureUrl?: string;
 }
 
 export interface IUserPaginate {
