@@ -30,8 +30,9 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('all')
-  async findUserByName(@Body() query: UserQueryDto) {
+  @Post('all')
+  async findUserByName(@Body() query) {
+    console.log(query);
     return await this.usersService.findUserByName(query);
   }
 

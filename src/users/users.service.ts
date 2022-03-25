@@ -40,8 +40,8 @@ export class UsersService extends BaseService<User> {
     const keyword = query.keyword || '';
 
     const [result, total] = await this.repository.findAndCount({
-      where: { name: Like('%' + keyword + '%') },
-      order: { name: 'DESC' },
+      where: { username: Like('%' + keyword + '%') },
+      order: { name: 'ASC' },
       take,
       skip,
     });

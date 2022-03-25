@@ -26,19 +26,19 @@ export class PostService extends BaseService<Post> {
     return await this.repository.save(data);
   }
 
-  // async findAllPost(query): Promise<any> {
-  //   const take = query.take || 10;
-  //   const skip = query.skip || 0;
+  async findAllPost(query): Promise<any> {
+    const take = query ? query.take : 20;
+    const skip = query ? query.skip : 0;
 
-  //   const [result, total] = await this.repository.findAndCount({
-  //     where: { order: { createdAt: 'DESC' } },
-  //     take,
-  //     skip,
-  //   });
+    const [result, total] = await this.repository.findAndCount({
+      order: { createdAt: 'DESC' },
+      take,
+      skip,
+    });
 
-  //   return {
-  //     data: result,
-  //     count: total,
-  //   };
-  // }
+    return {
+      data: result,
+      count: total,
+    };
+  }
 }
