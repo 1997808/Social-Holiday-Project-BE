@@ -1,10 +1,8 @@
 export class CreateFriendshipDto {
   id: number;
-  userid1: number;
-  userid2: number;
+  creator: number;
+  receiver: number;
   status: string;
-  requestedDate: Date;
-  // deniedDate: Date;
-  terminationDate: Date;
-  // approvedDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

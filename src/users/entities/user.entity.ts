@@ -1,3 +1,5 @@
+import { Conversation } from 'src/conversations/entities/conversation.entity';
+import { Friendship } from 'src/friendships/entities/friendship.entity';
 import { Post } from 'src/posts/entities/post.entity';
 import {
   Entity,
@@ -24,7 +26,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   profile: string;
 
   @Column()
@@ -33,29 +35,20 @@ export class User {
   @Column()
   updatedAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   profilePictureUrl: string;
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 
-  // @OneToMany(
-  //   () => FriendRequestEntity,
-  //   (friendRequestEntity) => friendRequestEntity.creator,
-  // )
-  // sentFriendRequests: FriendRequestEntity[];
+  @OneToMany(() => Friendship, (friendship) => friendship.creator)
+  sentFriendRequests: Friendship[];
 
-  // @OneToMany(
-  //   () => FriendRequestEntity,
-  //   (friendRequestEntity) => friendRequestEntity.receiver,
-  // )
-  // receivedFriendRequests: FriendRequestEntity[];
+  @OneToMany(() => Friendship, (friendship) => friendship.receiver)
+  receivedFriendRequests: Friendship[];
 
-  // @ManyToMany(
-  //   () => ConversationEntity,
-  //   (conversationEntity) => conversationEntity.users,
-  // )
-  // conversations: ConversationEntity[];
+  @OneToMany(() => Conversation, (conversation) => conversation.creator)
+  conversations: Conversation[];
 
   // @OneToMany(() => MessageEntity, (messageEntity) => messageEntity.user)
   // messages: MessageEntity[];

@@ -7,25 +7,19 @@ export class Friendship {
   id: number;
 
   // @Column()
-  @ManyToOne(() => User, (user) => user.id)
-  userid1: number;
+  @ManyToOne(() => User, (user) => user.sentFriendRequests)
+  creator: number;
 
   // @Column()
-  @ManyToOne(() => User, (user) => user.id)
-  userid2: number;
+  @ManyToOne(() => User, (user) => user.receivedFriendRequests)
+  receiver: number;
 
   @Column()
   status: string;
 
   @Column()
-  requestedDate: Date;
+  createdAt: Date;
 
   @Column()
-  deniedDate: Date;
-
-  @Column()
-  terminationDate: Date;
-
-  @Column()
-  approvedDate: Date;
+  updatedAt: Date;
 }

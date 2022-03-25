@@ -22,6 +22,6 @@ export class Comment {
   @Column()
   updatedAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   replyTo: number;
 }
