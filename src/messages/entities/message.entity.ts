@@ -7,11 +7,11 @@ export class Message {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => User, (user) => user.id)
   author: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => Conversation, (conversation) => conversation.id)
   conversationid: number;
 
@@ -30,7 +30,7 @@ export class Message {
   @Column()
   updatedAt: Date;
 
-  @Column({ nullable: true })
-  @ManyToOne(() => User, (user) => user.id)
+  // @Column({ nullable: true })
+  @ManyToOne(() => User, (user) => user.id, { nullable: true })
   replyTo: number;
 }

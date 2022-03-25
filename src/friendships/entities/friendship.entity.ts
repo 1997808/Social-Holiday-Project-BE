@@ -6,11 +6,11 @@ export class Friendship {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => User, (user) => user.id)
   userid1: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => User, (user) => user.id)
   userid2: number;
 

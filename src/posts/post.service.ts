@@ -6,6 +6,7 @@ import { IPost } from './entities/post.interface';
 import { Post } from './entities/post.entity';
 import { BaseService } from 'src/common/base.service';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class PostService extends BaseService<Post> {
@@ -13,13 +14,15 @@ export class PostService extends BaseService<Post> {
     super(repository);
   }
 
-  async create(createPostDto: CreatePostDto): Promise<IPost> {
+  async create(user: User, createPostDto: CreatePostDto): Promise<IPost> {
     const date = new Date().toISOString();
     const data = {
       ...createPostDto,
+      author: user,
       createdAt: date,
       updatedAt: date,
     };
+    console.log(data);
     return await this.repository.save(data);
   }
 

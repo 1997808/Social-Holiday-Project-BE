@@ -6,9 +6,9 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @ManyToOne(() => User, (user) => user.id)
-  author: number;
+  // @Column()
+  @ManyToOne(() => User, (user) => user.posts)
+  author: User;
 
   @Column()
   content: string;

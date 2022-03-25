@@ -13,11 +13,11 @@ export class Participant {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => Conversation, (conversation) => conversation.id)
   conversationid: number;
 
-  @Column()
+  // @Column()
   @ManyToMany(() => User, (user) => user.id)
   userid: number;
 }

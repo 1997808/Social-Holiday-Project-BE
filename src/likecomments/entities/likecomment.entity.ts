@@ -13,11 +13,11 @@ export class Likecomment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  // @Column()
   @ManyToOne(() => Comment, (comment) => comment.id)
   commentid: number;
 
-  @Column()
+  // @Column()
   @ManyToMany(() => User, (user) => user.id)
   userid: number;
 }

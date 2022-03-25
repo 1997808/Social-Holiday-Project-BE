@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -19,8 +20,8 @@ export class PostController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createPostDto: CreatePostDto) {
-    return await this.postService.create(createPostDto);
+  async create(@Body() createPostDto: CreatePostDto, @Request() req) {
+    return await this.postService.create(req.user, createPostDto);
   }
 
   @UseGuards(JwtAuthGuard)

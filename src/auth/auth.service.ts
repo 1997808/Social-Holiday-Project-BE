@@ -28,8 +28,7 @@ export class AuthService {
     if (user) {
       if (await this.comparePassword(password, user.password)) {
         result = this.jwtService.sign({
-          id: user.id,
-          username: user.username,
+          ...user,
         });
         return {
           user,
