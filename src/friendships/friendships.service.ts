@@ -39,4 +39,11 @@ export class FriendshipsService extends BaseService<Friendship> {
     if (result) return true;
     return false;
   }
+
+  async findPendingFriendRequest(userId: any) {
+    return await this.repository.find({
+      where: [{ receiver: userId }],
+      relations: ['creator'],
+    });
+  }
 }

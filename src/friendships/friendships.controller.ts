@@ -35,9 +35,14 @@ export class FriendshipsController {
     return this.friendshipsService.create(req.user, createFriendshipDto);
   }
 
-  @Get()
+  @Get('/all')
   findAll() {
     return this.friendshipsService.findAll();
+  }
+
+  @Get('/pending')
+  findPendingFriendRequest(@Request() req) {
+    return this.friendshipsService.findPendingFriendRequest(req.user.id);
   }
 
   @Get(':id')
