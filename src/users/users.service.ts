@@ -24,7 +24,7 @@ export class UsersService extends BaseService<User> {
     return await this.repository.save(data);
   }
 
-  async findUserWithPassword(email: string): Promise<IUser> {
+  async findUserWithPassword(email: string): Promise<any> {
     return await this.repository.findOne(
       { email },
       {

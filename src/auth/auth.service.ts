@@ -21,7 +21,7 @@ export class AuthService {
   //   return null;
   // }
 
-  async checkUserExist(payload) {
+  async checkUserExist(payload): Promise<boolean> {
     const { email } = payload;
     const user = await this.usersService.findOne({ email });
     if (user) {
@@ -49,22 +49,26 @@ export class AuthService {
   }
 
   async checkLogin(request) {
-    if (request.headers.authorization) {
-      const jwt = request.headers.authorization.replace('Bearer ', '');
-      if (jwt !== 'null') {
-        const data = await this.jwtService.verifyAsync(jwt);
-        if (data) {
-          const user = await this.usersService.findById(data.id);
-          const { password, ...result } = user;
-          return { user: result };
+    try {
+      if (request.headers.authorization) {
+        const jwt = request.headers.authorization.replace('Bearer ', '');
+        if (jwt !== 'null') {
+          const data = await this.jwtService.verifyAsync(jwt);
+          if (data) {
+            const user = await this.usersService.findById(data.id);
+            const { password, ...result } = user;
+            return { user: result };
+          }
         }
       }
+      return false;
+    } catch (err) {
+      return false;
     }
-    return false;
   }
 
   public async create(user: CreateUserDto) {
-    if (this.checkUserExist(user)) {
+    if (await this.checkUserExist(user)) {
       return { message: 'User already existed' };
     } else {
       const pass = await this.hashPassword(user.password);
