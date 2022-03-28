@@ -48,6 +48,11 @@ export class FriendshipsController {
     return this.friendshipsService.findPendingFriendRequest(req.user.id);
   }
 
+  @Get('/friend')
+  findFriend(@Request() req) {
+    return this.friendshipsService.findFriend(req.user.id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.friendshipsService.findOne(+id);
