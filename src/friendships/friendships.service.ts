@@ -36,9 +36,16 @@ export class FriendshipsService extends BaseService<Friendship> {
   ): Promise<boolean> {
     const result = await this.repository.findOne({
       where: [
-        { creator: creatorId, receiver: receiverId },
-        { creator: receiverId, receiver: creatorId },
-        { status: FRIENDSHIP_STATUS.PENDING },
+        {
+          creator: creatorId,
+          receiver: receiverId,
+          status: FRIENDSHIP_STATUS.PENDING,
+        },
+        {
+          creator: receiverId,
+          receiver: creatorId,
+          status: FRIENDSHIP_STATUS.PENDING,
+        },
       ],
     });
     if (result) return true;
