@@ -98,7 +98,7 @@ export class FriendshipsService extends BaseService<Friendship> {
   async declineFriendRequest(friendRequestId: number) {
     return await this.repository.update(
       { id: friendRequestId },
-      { status: FRIENDSHIP_STATUS.ACCEPTED },
+      { status: FRIENDSHIP_STATUS.DECLINED },
     );
   }
 

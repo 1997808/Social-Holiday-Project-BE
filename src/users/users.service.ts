@@ -51,4 +51,16 @@ export class UsersService extends BaseService<User> {
       count: total,
     };
   }
+
+  async findUserProfileById(id: number): Promise<any> {
+    // return await this.repository.findOne({ id }, { relations: ['posts'] });
+    return await this.repository
+      .createQueryBuilder('users')
+      .where(`users.id = ${id}`)
+      .leftJoinAndSelect('users.posts', 'posts', '')
+      .orderBy({
+        'posts.createdAt': 'DESC',
+      })
+      .getOne();
+  }
 }

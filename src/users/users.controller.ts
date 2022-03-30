@@ -24,15 +24,21 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('/all')
   async findAll() {
     return await this.usersService.index();
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('all')
+  @Post('/search')
   async findUserByName(@Body() query) {
     return await this.usersService.findUserByName(query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/profile/:id')
+  async findUserProfileById(@Param('id') id: string) {
+    return await this.usersService.findUserProfileById(+id);
   }
 
   @UseGuards(JwtAuthGuard)

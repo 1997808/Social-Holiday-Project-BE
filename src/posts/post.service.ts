@@ -22,7 +22,6 @@ export class PostService extends BaseService<Post> {
       createdAt: date,
       updatedAt: date,
     };
-    console.log(data);
     return await this.repository.save(data);
   }
 
