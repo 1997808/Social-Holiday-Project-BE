@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,10 +7,14 @@ import { IUser, IUserPaginate } from './entities/user.interface';
 import { User } from './entities/user.entity';
 import { BaseService } from 'src/common/base.service';
 import { UserQueryDto } from './dto/user.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService extends BaseService<User> {
-  constructor(@InjectRepository(User) repository: Repository<User>) {
+  constructor(
+    @InjectRepository(User) repository: Repository<User>,
+    private cloudinary: CloudinaryService,
+  ) {
     super(repository);
   }
 
@@ -62,5 +66,11 @@ export class UsersService extends BaseService<User> {
         'posts.createdAt': 'DESC',
       })
       .getOne();
+  }
+
+  async uploadImageToCloudinary(file: Express.Multer.File) {
+    return await this.cloudinary.uploadImage(file).catch(() => {
+      throw new BadRequestException('Invalid file type.');
+    });
   }
 }

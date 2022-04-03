@@ -14,6 +14,7 @@ import { FriendshipsModule } from './friendships/friendships.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { LikecommentsModule } from './likecomments/likecomments.module';
 import { LikepostsModule } from './likeposts/likeposts.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { LikepostsModule } from './likeposts/likeposts.module';
     NotificationsModule,
     LikecommentsModule,
     LikepostsModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

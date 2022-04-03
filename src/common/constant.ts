@@ -4,3 +4,4 @@ export const FRIENDSHIP_STATUS = {
   DECLINED: 'Declined',
   CANCEL: 'Cancel',
 };
+export const CLOUDINARY = 'Cloudinary';
