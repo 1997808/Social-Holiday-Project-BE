@@ -73,4 +73,8 @@ export class UsersService extends BaseService<User> {
       throw new BadRequestException('Invalid file type.');
     });
   }
+
+  async deleteImageFromCloudinary(id: string) {
+    await this.cloudinary.deleteImage(id);
+  }
 }

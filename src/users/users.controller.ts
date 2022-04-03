@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -47,9 +48,22 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Post('/profile/icon')
   @UseInterceptors(FileInterceptor('file'))
-  async setProfileImage(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-    // return await this.usersService.uploadImageToCloudinary(file);
+  async setProfileImage(
+    @Request() req,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const result = await this.usersService.uploadImageToCloudinary(file);
+    if (file && result) {
+      await this.usersService.update(
+        { id: req.user.id },
+        {
+          profilePictureUrl: result.secure_url,
+          cloudinaryId: result.public_id,
+        },
+      );
+      return true;
+    }
+    return false;
   }
 
   @UseGuards(JwtAuthGuard)

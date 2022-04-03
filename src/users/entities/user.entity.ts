@@ -38,6 +38,9 @@ export class User {
   @Column({ nullable: true })
   profilePictureUrl: string;
 
+  @Column({ nullable: true })
+  cloudinaryId: string;
+
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
 

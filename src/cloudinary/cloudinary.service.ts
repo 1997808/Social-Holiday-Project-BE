@@ -16,4 +16,13 @@ export class CloudinaryService {
       toStream(file.buffer).pipe(upload);
     });
   }
+
+  async deleteImage(id: string) {
+    try {
+      const result = v2.uploader.destroy(id);
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
