@@ -21,15 +21,6 @@ export class AuthService {
   //   return null;
   // }
 
-  async checkUserExist(payload): Promise<boolean> {
-    const { email } = payload;
-    const user = await this.usersService.findOne({ email });
-    if (user) {
-      return true;
-    }
-    return false;
-  }
-
   async login(payload: LoginDto) {
     const { email, password } = payload;
     let result;
@@ -68,7 +59,7 @@ export class AuthService {
   }
 
   public async create(user: CreateUserDto) {
-    if (await this.checkUserExist(user)) {
+    if (await this.usersService.checkUserExist(user)) {
       return { message: 'User already existed' };
     } else {
       const pass = await this.hashPassword(user.password);

@@ -28,10 +28,16 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/all')
-  async findAll() {
-    return await this.usersService.index();
+  @Get()
+  async findOne(@Request() req) {
+    return await this.usersService.findById(req.user.id);
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Get('/all')
+  // async findAll() {
+  //   return await this.usersService.index();
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('/search')
@@ -43,6 +49,12 @@ export class UsersController {
   @Get('/profile/:id')
   async findUserProfileById(@Param('id') id: string) {
     return await this.usersService.findUserProfileById(+id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/profile')
+  async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
+    return await this.usersService.update(req.user.id, updateUserDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -64,18 +76,6 @@ export class UsersController {
       return true;
     }
     return false;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.usersService.findById(+id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return await this.usersService.update(+id, updateUserDto);
   }
 
   @UseGuards(JwtAuthGuard)

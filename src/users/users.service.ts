@@ -56,6 +56,15 @@ export class UsersService extends BaseService<User> {
     };
   }
 
+  async checkUserExist(payload): Promise<boolean> {
+    const { email } = payload;
+    const user = await this.repository.findOne({ email });
+    if (user) {
+      return true;
+    }
+    return false;
+  }
+
   async findUserProfileById(id: number): Promise<any> {
     // return await this.repository.findOne({ id }, { relations: ['posts'] });
     return await this.repository
