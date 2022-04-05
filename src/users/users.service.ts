@@ -32,7 +32,7 @@ export class UsersService extends BaseService<User> {
     return await this.repository.findOne(
       { email },
       {
-        select: ['id', 'name', 'username', 'email', 'password'],
+        select: ['id', 'name', 'username', 'email', 'password', 'cloudinaryId'],
       },
     );
   }
