@@ -15,6 +15,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { LikecommentsModule } from './likecomments/likecomments.module';
 import { LikepostsModule } from './likeposts/likeposts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     LikecommentsModule,
     LikepostsModule,
     CloudinaryModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
