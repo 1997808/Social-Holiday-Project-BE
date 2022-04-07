@@ -3,8 +3,8 @@ export interface IMessage {
   author: number;
   conversationid: number;
   content: string;
-  status: string;
+  // status: string;
   createdAt: Date;
   updatedAt: Date;
-  replyTo: number;
+  replyTo?: number;
 }

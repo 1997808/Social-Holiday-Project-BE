@@ -1,12 +1,14 @@
 import { Conversation } from 'src/conversations/entities/conversation.entity';
 import { Friendship } from 'src/friendships/entities/friendship.entity';
+import { Message } from 'src/messages/entities/message.entity';
+import { Participant } from 'src/participants/entities/participant.entity';
 import { Post } from 'src/posts/entities/post.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
   OneToMany,
+  ManyToMany,
 } from 'typeorm';
 
 @Entity()
@@ -50,9 +52,12 @@ export class User {
   @OneToMany(() => Friendship, (friendship) => friendship.receiver)
   receivedFriendRequests: Friendship[];
 
-  @OneToMany(() => Conversation, (conversation) => conversation.creator)
-  conversations: Conversation[];
+  // @OneToMany(() => Conversation, (conversation) => conversation.creator)
+  // conversations: Conversation[];
 
-  // @OneToMany(() => MessageEntity, (messageEntity) => messageEntity.user)
-  // messages: MessageEntity[];
+  @OneToMany(() => Message, (message) => message.author)
+  messages: Message[];
+
+  @ManyToMany(() => Participant, (participant) => participant.userid)
+  participants: Participant[];
 }

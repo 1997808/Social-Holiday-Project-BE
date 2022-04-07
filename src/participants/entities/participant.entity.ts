@@ -1,12 +1,6 @@
 import { Conversation } from 'src/conversations/entities/conversation.entity';
 import { User } from 'src/users/entities/user.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  ManyToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Participant {

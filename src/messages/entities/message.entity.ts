@@ -7,22 +7,17 @@ export class Message {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
   @ManyToOne(() => User, (user) => user.id)
   author: number;
 
-  // @Column()
   @ManyToOne(() => Conversation, (conversation) => conversation.id)
   conversationid: number;
 
   @Column()
   content: string;
 
-  @Column()
-  status: string;
-
-  // @Column('int', { array: true })
-  // read_participant: number[];
+  // @Column()
+  // status: string;
 
   @Column()
   createdAt: Date;
@@ -30,7 +25,6 @@ export class Message {
   @Column()
   updatedAt: Date;
 
-  // @Column({ nullable: true })
-  @ManyToOne(() => User, (user) => user.id, { nullable: true })
+  @ManyToOne(() => Message, (message) => message.id, { nullable: true })
   replyTo: number;
 }
