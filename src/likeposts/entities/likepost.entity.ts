@@ -20,4 +20,10 @@ export class Likepost {
   // @Column()
   @ManyToMany(() => User, (user) => user.id)
   userid: number;
+
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }

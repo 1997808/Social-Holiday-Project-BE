@@ -1,5 +1,6 @@
 import { Conversation } from 'src/conversations/entities/conversation.entity';
 import { Friendship } from 'src/friendships/entities/friendship.entity';
+import { Likepost } from 'src/likeposts/entities/likepost.entity';
 import { Message } from 'src/messages/entities/message.entity';
 import { Participant } from 'src/participants/entities/participant.entity';
 import { Post } from 'src/posts/entities/post.entity';
@@ -60,4 +61,7 @@ export class User {
 
   @ManyToMany(() => Participant, (participant) => participant.userid)
   participants: Participant[];
+
+  @ManyToMany(() => Likepost, (likepost) => likepost.userid)
+  likeposts: Likepost[];
 }

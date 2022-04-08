@@ -1,5 +1,12 @@
+import { Likepost } from 'src/likeposts/entities/likepost.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Post {
@@ -21,4 +28,7 @@ export class Post {
 
   @Column('text', { array: true, nullable: true })
   imageUrl: string[];
+
+  @OneToMany(() => Likepost, (likepost) => likepost.postid)
+  likes: number[];
 }
