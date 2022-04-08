@@ -15,7 +15,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { LikecommentsModule } from './likecomments/likecomments.module';
 import { LikepostsModule } from './likeposts/likeposts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { ChatModule } from './chat/chat.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -41,7 +41,7 @@ import { ChatModule } from './chat/chat.module';
     LikecommentsModule,
     LikepostsModule,
     CloudinaryModule,
-    ChatModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],
