@@ -4,8 +4,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  ManyToMany,
   Column,
+  // OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -13,13 +13,11 @@ export class Likepost {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
   @ManyToOne(() => Post, (post) => post.id)
-  postid: number;
+  post: Post;
 
-  // @Column()
-  @ManyToMany(() => User, (user) => user.id)
-  userid: number;
+  @ManyToOne(() => User, (user) => user.id)
+  user: User;
 
   @Column()
   createdAt: Date;

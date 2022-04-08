@@ -29,6 +29,6 @@ export class Post {
   @Column('text', { array: true, nullable: true })
   imageUrl: string[];
 
-  @OneToMany(() => Likepost, (likepost) => likepost.postid)
-  likes: number[];
+  @OneToMany(() => Likepost, (likepost) => likepost.post)
+  likes: Likepost[];
 }

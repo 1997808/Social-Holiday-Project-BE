@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -62,6 +63,6 @@ export class User {
   @ManyToMany(() => Participant, (participant) => participant.userid)
   participants: Participant[];
 
-  @ManyToMany(() => Likepost, (likepost) => likepost.userid)
+  @OneToMany(() => Likepost, (likepost) => likepost.user)
   likeposts: Likepost[];
 }
