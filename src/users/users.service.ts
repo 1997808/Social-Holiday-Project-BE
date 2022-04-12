@@ -70,7 +70,8 @@ export class UsersService extends BaseService<User> {
     return await this.repository
       .createQueryBuilder('users')
       .where(`users.id = ${id}`)
-      .leftJoinAndSelect('users.posts', 'posts', '')
+      .leftJoinAndSelect('users.posts', 'posts')
+      .leftJoinAndSelect('posts.likes', 'likeposts')
       .orderBy({
         'posts.createdAt': 'DESC',
       })
