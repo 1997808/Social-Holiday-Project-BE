@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Likepost {
+export class Votepost {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,6 +18,9 @@ export class Likepost {
 
   @ManyToOne(() => User, (user) => user.id)
   user: User;
+
+  @Column({ nullable: true })
+  vote: number;
 
   @Column()
   createdAt: Date;

@@ -1,4 +1,4 @@
-import { Likepost } from 'src/likeposts/entities/likepost.entity';
+import { Votepost } from 'src/voteposts/entities/votepost.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Entity,
@@ -29,6 +29,9 @@ export class Post {
   @Column('text', { array: true, nullable: true })
   imageUrl: string[];
 
-  @OneToMany(() => Likepost, (likepost) => likepost.post)
-  likes: Likepost[];
+  @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == 1))
+  upvotes: Votepost[];
+
+  @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == -1))
+  downvotes: Votepost[];
 }

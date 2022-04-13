@@ -71,7 +71,7 @@ export class UsersService extends BaseService<User> {
       .createQueryBuilder('users')
       .where(`users.id = ${id}`)
       .leftJoinAndSelect('users.posts', 'posts')
-      .leftJoinAndSelect('posts.likes', 'likeposts')
+      .leftJoinAndSelect('posts.likes', 'voteposts')
       .orderBy({
         'posts.createdAt': 'DESC',
       })
