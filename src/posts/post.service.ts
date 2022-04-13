@@ -33,7 +33,7 @@ export class PostService extends BaseService<Post> {
       order: { createdAt: 'DESC' },
       take,
       skip,
-      relations: ['author', 'likes'],
+      relations: ['author', 'votes'],
     });
 
     return {

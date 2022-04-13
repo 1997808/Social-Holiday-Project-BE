@@ -29,9 +29,12 @@ export class Post {
   @Column('text', { array: true, nullable: true })
   imageUrl: string[];
 
-  @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == 1))
-  upvotes: Votepost[];
+  @OneToMany(() => Votepost, (votepost) => votepost.post)
+  votes: Votepost[];
 
-  @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == -1))
-  downvotes: Votepost[];
+  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == 1))
+  // upvotes: Votepost[];
+
+  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == -1))
+  // downvotes: Votepost[];
 }
