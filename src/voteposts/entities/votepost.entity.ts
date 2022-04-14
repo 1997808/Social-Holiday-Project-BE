@@ -14,7 +14,7 @@ export class Votepost {
   id: number;
 
   @ManyToOne(() => Post, (post) => post.id)
-  post: Post;
+  post: number;
 
   @ManyToOne(() => User, (user) => user.id)
   user: User;

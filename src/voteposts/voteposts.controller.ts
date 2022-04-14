@@ -35,13 +35,12 @@ export class VotepostsController {
     @Request() req,
   ) {
     const { postid, vote } = createVotepostDto;
-    console.log(vote);
     const post = await this.postsService.findOne({
       id: postid,
     });
     if (post) {
       const votepost = await this.votepostsService.findOne({
-        post: post,
+        post: postid,
         user: req.user,
       });
       if (votepost) {
@@ -58,7 +57,7 @@ export class VotepostsController {
           );
         }
       } else {
-        await this.votepostsService.create(req.user, post, vote);
+        await this.votepostsService.create(req.user, postid, vote);
       }
       return true;
     }
@@ -73,6 +72,16 @@ export class VotepostsController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.votepostsService.findOne(+id);
+  }
+
+  @Get('post/:id')
+  async getVoteByPostid(@Param('id') id: string) {
+    const upvotes = await this.votepostsService.findPostUpvotes(+id);
+    const downvotes = await this.votepostsService.findPostDownvotes(+id);
+    return {
+      upvotes,
+      downvotes,
+    };
   }
 
   @Patch(':id')
