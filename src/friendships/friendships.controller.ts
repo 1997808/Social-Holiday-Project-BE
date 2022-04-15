@@ -13,6 +13,7 @@ import { FriendshipsService } from './friendships.service';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
 import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { FRIENDSHIP_STATUS } from 'src/common/constant';
 
 @UseGuards(JwtAuthGuard)
 @Controller('friendships')
@@ -27,15 +28,29 @@ export class FriendshipsController {
     if (createFriendshipDto.receiver === req.user.id) {
       return { message: 'Unable to send to yourself' };
     }
-    if (
-      await this.friendshipsService.checkExistedFriendRequest(
-        createFriendshipDto.receiver,
-        req.user.id,
-      )
-    ) {
-      return { message: 'Request already existed' };
+    const friendship = await this.friendshipsService.checkExistedFriendRequest(
+      createFriendshipDto.receiver,
+      req.user.id,
+    );
+    if (friendship) {
+      switch (friendship.status) {
+        case FRIENDSHIP_STATUS.PENDING:
+          return { message: 'Request already existed' };
+        case FRIENDSHIP_STATUS.ACCEPTED:
+          return { message: 'Already friend' };
+        case FRIENDSHIP_STATUS.DECLINED:
+        case FRIENDSHIP_STATUS.CANCEL:
+          return await this.friendshipsService.update(
+            { id: friendship.id },
+            { status: FRIENDSHIP_STATUS.PENDING },
+          );
+      }
+    } else {
+      return await this.friendshipsService.create(
+        req.user,
+        createFriendshipDto,
+      );
     }
-    return await this.friendshipsService.create(req.user, createFriendshipDto);
   }
 
   @Get('/all')
@@ -51,6 +66,18 @@ export class FriendshipsController {
   @Get('/friend')
   findFriend(@Request() req) {
     return this.friendshipsService.findFriend(req.user.id);
+  }
+
+  @Get('check/:userid')
+  async checkUserFriendRequestStatus(
+    @Request() req,
+    @Param('userid') userid: string,
+  ) {
+    const status = await this.friendshipsService.checkUserFriendRequestStatus(
+      req.user.id,
+      +userid,
+    );
+    return status;
   }
 
   @Get(':id')
