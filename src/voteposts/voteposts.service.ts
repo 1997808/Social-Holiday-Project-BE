@@ -52,4 +52,12 @@ export class VotepostsService extends BaseService<Votepost> {
       count,
     };
   }
+
+  async checkUserVotepost(user: User, postid: number): Promise<any> {
+    const result = await this.repository.findOne({ user, post: postid });
+    if (result) {
+      return { data: result.vote };
+    }
+    return { data: 0 };
+  }
 }

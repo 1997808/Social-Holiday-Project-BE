@@ -74,8 +74,14 @@ export class VotepostsController {
     return this.votepostsService.findOne(+id);
   }
 
-  @Get('post/:id')
-  async getVoteByPostid(@Param('id') id: string) {
+  @Get('check/:postid')
+  async checkUserVotepost(@Request() req, @Param('postid') id: string) {
+    const vote = await this.votepostsService.checkUserVotepost(req.user, +id);
+    return vote;
+  }
+
+  @Get('post/:postid')
+  async getVoteByPostid(@Param('postid') id: string) {
     const upvotes = await this.votepostsService.findPostUpvotes(+id);
     const downvotes = await this.votepostsService.findPostDownvotes(+id);
     return {
