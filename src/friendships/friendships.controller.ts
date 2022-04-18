@@ -21,7 +21,7 @@ export class FriendshipsController {
   constructor(private readonly friendshipsService: FriendshipsService) {}
 
   @Post()
-  async create(
+  async handleAddFriend(
     @Body() createFriendshipDto: CreateFriendshipDto,
     @Request() req,
   ) {
