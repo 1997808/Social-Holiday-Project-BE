@@ -58,6 +58,23 @@ export class AuthService {
     }
   }
 
+  async getUserFromToken(token: string) {
+    try {
+      const jwt = token.replace('Bearer ', '');
+      if (jwt !== 'null') {
+        const data = await this.jwtService.verifyAsync(jwt);
+        if (data) {
+          const user = await this.usersService.findById(data.id);
+          const { password, ...result } = user;
+          return { user: result };
+        }
+      }
+      return false;
+    } catch (err) {
+      return false;
+    }
+  }
+
   public async create(user: CreateUserDto) {
     if (await this.usersService.checkUserExist(user)) {
       return { message: 'User already existed' };

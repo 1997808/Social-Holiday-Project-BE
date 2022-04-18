@@ -1,8 +1,7 @@
 export class CreateMessageDto {
-  id: number;
   author: number;
   conversationid: number;
   content: string;
-  status?: string;
+  // status?: string;
   replyTo?: number;
 }
