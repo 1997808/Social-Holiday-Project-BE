@@ -1,10 +1,10 @@
 import { User } from 'src/users/entities/user.entity';
 
 export interface IConversation {
-  id: number;
+  id?: number;
   title?: string;
-  paricipant?: number[];
-  // type: string;
-  createdAt: Date;
-  updatedAt: Date;
+  participants?: User[];
+  type?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

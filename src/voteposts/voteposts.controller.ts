@@ -14,7 +14,7 @@ import { CreateVotepostDto } from './dto/create-votepost.dto';
 import { UpdateVotepostDto } from './dto/update-votepost.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { PostService } from 'src/posts/post.service';
-import { Vote } from 'src/common/constant';
+import { VOTE } from 'src/common/constant';
 
 @UseGuards(JwtAuthGuard)
 @Controller('voteposts')
@@ -48,7 +48,7 @@ export class VotepostsController {
           // press same vote
           await this.votepostsService.update(
             { id: votepost.id },
-            { vote: Vote.NEUTRAL },
+            { vote: VOTE.NEUTRAL },
           );
         } else {
           await this.votepostsService.update(

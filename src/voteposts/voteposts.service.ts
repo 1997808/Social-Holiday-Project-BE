@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
-import { Vote } from 'src/common/constant';
-import { Post } from 'src/posts/entities/post.entity';
+import { VOTE } from 'src/common/constant';
+// import { Post } from 'src/posts/entities/post.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 // import { CreateVotepostDto } from './dto/create-votepost.dto';
@@ -15,7 +15,7 @@ export class VotepostsService extends BaseService<Votepost> {
   constructor(@InjectRepository(Votepost) repository: Repository<Votepost>) {
     super(repository);
   }
-  async create(user: User, post: number, vote: Vote): Promise<IVotepost> {
+  async create(user: User, post: number, vote: VOTE): Promise<IVotepost> {
     const date = new Date().toISOString();
     const data = {
       post,

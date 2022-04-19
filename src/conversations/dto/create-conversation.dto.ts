@@ -1,11 +1,11 @@
-// import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 
 export class CreateConversationDto {
-  id: number;
-  title: string;
-  paricipant?: number[];
+  // id: number;
+  title?: string;
+  participants?: User[];
   // creator: User;
-  // type: string;
-  createdAt: Date;
-  updatedAt: Date;
+  type?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

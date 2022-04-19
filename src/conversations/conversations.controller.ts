@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
 } from '@nestjs/common';
 import { ConversationsService } from './conversations.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
@@ -16,8 +17,9 @@ export class ConversationsController {
   constructor(private readonly conversationsService: ConversationsService) {}
 
   @Post()
-  create(@Body() createConversationDto: CreateConversationDto) {
-    return this.conversationsService.create(createConversationDto);
+  create(@Body() createConversationDto: CreateConversationDto, @Request() req) {
+    createConversationDto.participants.push(req.user);
+    // return this.conversationsService.create(createConversationDto);
   }
 
   @Get()

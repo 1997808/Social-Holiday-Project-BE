@@ -8,8 +8,13 @@ export const FRIENDSHIP_STATUS = {
 
 export const CLOUDINARY = 'Cloudinary';
 
-export enum Vote {
+export enum VOTE {
   UP = 1,
   NEUTRAL = 0,
   DOWN = -1,
+}
+
+export enum CONVERSATION_TYPE {
+  DIRECT = 0,
+  GROUP = 1,
 }
