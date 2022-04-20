@@ -1,9 +1,9 @@
-import { User } from 'src/users/entities/user.entity';
+// import { User } from 'src/users/entities/user.entity';
 
 export interface IConversation {
   id?: number;
   title?: string;
-  participants?: User[];
+  participants?: number[];
   type?: number;
   createdAt?: Date;
   updatedAt?: Date;

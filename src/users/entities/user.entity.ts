@@ -3,7 +3,13 @@ import { Friendship } from 'src/friendships/entities/friendship.entity';
 import { Votepost } from 'src/voteposts/entities/votepost.entity';
 import { Message } from 'src/messages/entities/message.entity';
 import { Post } from 'src/posts/entities/post.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -46,7 +52,7 @@ export class User {
   @OneToMany(() => Friendship, (friendship) => friendship.receiver)
   receivedFriendRequests: Friendship[];
 
-  @OneToMany(() => Conversation, (conversation) => conversation.participants)
+  @ManyToMany(() => Conversation, (conversation) => conversation.participants)
   conversations: Conversation[];
 
   @OneToMany(() => Message, (message) => message.author)

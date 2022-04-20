@@ -1,7 +1,9 @@
+import { Conversation } from 'src/conversations/entities/conversation.entity';
+
 export interface IMessage {
   id: number;
   author: number;
-  conversationid: number;
+  conversation: Conversation;
   content: string;
   // status: string;
   createdAt: Date;

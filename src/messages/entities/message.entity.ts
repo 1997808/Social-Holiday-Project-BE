@@ -11,7 +11,7 @@ export class Message {
   author: number;
 
   @ManyToOne(() => Conversation, (conversation) => conversation.id)
-  conversationid: number;
+  conversation: Conversation;
 
   @Column()
   content: string;

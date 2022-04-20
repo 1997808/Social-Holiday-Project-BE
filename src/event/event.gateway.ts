@@ -59,9 +59,12 @@ export class EventGateway
   }
 
   async saveMessage(content: string, author: number, conversationid: number) {
+    const conversation = await this.conversationService.findById(
+      conversationid,
+    );
     const newMessage = await this.messageService.create({
       content,
-      conversationid,
+      conversation,
       author,
     });
     return newMessage;

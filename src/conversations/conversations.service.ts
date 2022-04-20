@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateConversationDto } from './dto/create-conversation.dto';
-import { UpdateConversationDto } from './dto/update-conversation.dto';
+// import { CreateConversationDto } from './dto/create-conversation.dto';
+// import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Conversation } from './entities/conversation.entity';
 import { IConversation } from './entities/conversation.interface';
 
@@ -15,9 +15,7 @@ export class ConversationsService extends BaseService<Conversation> {
   ) {
     super(repository);
   }
-  async create(
-    createConversationDto: CreateConversationDto,
-  ): Promise<IConversation> {
+  async create(createConversationDto): Promise<IConversation> {
     const date = new Date().toISOString();
     const data = {
       ...createConversationDto,
@@ -25,5 +23,12 @@ export class ConversationsService extends BaseService<Conversation> {
       updatedAt: date,
     };
     return await this.repository.save(data);
+  }
+
+  async findConversationForUser(userid: number): Promise<any> {
+    const result = await this.repository.find({
+      relations: ['participants'],
+    });
+    return result;
   }
 }
