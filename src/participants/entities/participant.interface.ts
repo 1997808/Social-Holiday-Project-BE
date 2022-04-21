@@ -3,10 +3,10 @@ import { Message } from 'src/messages/entities/message.entity';
 import { User } from 'src/users/entities/user.entity';
 
 export interface IParticipant {
-  id: number;
+  id?: number;
   conversation?: Conversation;
-  conversationId?: number;
+  conversationid?: number;
   user?: User;
-  userId?: number;
+  userid?: number;
   messages?: Message[];
 }

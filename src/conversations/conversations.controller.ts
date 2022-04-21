@@ -10,7 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
-import { User } from 'src/users/entities/user.entity';
+import { ParticipantsService } from 'src/participants/participants.service';
+// import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { ConversationsService } from './conversations.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
@@ -22,6 +23,7 @@ export class ConversationsController {
   constructor(
     private readonly conversationsService: ConversationsService,
     private readonly usersService: UsersService,
+    private readonly participantsService: ParticipantsService,
   ) {}
 
   @Post()
@@ -29,25 +31,27 @@ export class ConversationsController {
     @Request() req,
     @Body() createConversationDto: CreateConversationDto,
   ) {
-    const users = [];
+    const userids = createConversationDto.userids;
     // forEach error here
-    for (const item of createConversationDto.participants) {
-      const user = await this.usersService.findOne({ id: item });
-      if (user) {
-        users.push(user);
-      }
-    }
-    users.push(req.user);
+    // for (const item of createConversationDto.userids) {
+    //   const user = await this.usersService.findOne({ id: item });
+    // }
+    userids.push(req.user.id);
     const data = {
       type: createConversationDto.type,
-      participants: users,
     };
-    return await this.conversationsService.create(data);
+    const conversation = await this.conversationsService.create(data);
+    if (conversation) {
+      await this.participantsService.createMany(conversation.id, userids);
+    }
+    return conversation;
   }
 
   @Get()
-  findConversationForUser(@Request() req) {
-    return this.conversationsService.findConversationForUser(req.user.id);
+  async findConversation(@Request() req) {
+    const conversationIds =
+      await this.participantsService.findConversationForUser(req.user.id);
+    return await this.conversationsService.findConversation(conversationIds);
   }
 
   @Get(':id')

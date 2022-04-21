@@ -25,9 +25,9 @@ export class ConversationsService extends BaseService<Conversation> {
     return await this.repository.save(data);
   }
 
-  async findConversationForUser(userid: number): Promise<any> {
-    const result = await this.repository.find({
-      relations: ['participants'],
+  async findConversation(conversationIds: number[]): Promise<any> {
+    const result = await this.repository.findByIds(conversationIds, {
+      relations: ['participants', 'participants.user'],
     });
     return result;
   }
