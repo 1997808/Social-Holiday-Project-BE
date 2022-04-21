@@ -1,7 +1,8 @@
 import { Conversation } from 'src/conversations/entities/conversation.entity';
+import { Participant } from 'src/participants/entities/participant.entity';
 
 export class CreateMessageDto {
-  author: number;
+  author: Participant;
   conversation: Conversation;
   content: string;
   // status?: string;

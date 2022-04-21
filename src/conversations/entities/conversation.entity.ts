@@ -1,14 +1,6 @@
 import { Message } from 'src/messages/entities/message.entity';
-// import { Participant } from 'src/participants/entities/participant.entity';
-import { User } from 'src/users/entities/user.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import { Participant } from 'src/participants/entities/participant.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Conversation {
@@ -18,9 +10,8 @@ export class Conversation {
   @Column({ default: '' })
   title: string;
 
-  @ManyToMany(() => User)
-  @JoinTable()
-  participants: User[];
+  @OneToMany(() => Participant, (paricipant) => paricipant.conversation)
+  participants: Participant[];
 
   @Column()
   type: number;

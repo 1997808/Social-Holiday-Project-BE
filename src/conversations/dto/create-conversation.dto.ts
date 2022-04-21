@@ -3,6 +3,5 @@
 export class CreateConversationDto {
   // title?: string;
   participants?: number[];
-  // creator: User;
   type?: number;
 }

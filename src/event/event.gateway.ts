@@ -62,10 +62,13 @@ export class EventGateway
     const conversation = await this.conversationService.findById(
       conversationid,
     );
+    const participant = await this.participateService.findOne({
+      userId: author,
+    });
     const newMessage = await this.messageService.create({
       content,
       conversation,
-      author,
+      author: participant,
     });
     return newMessage;
   }

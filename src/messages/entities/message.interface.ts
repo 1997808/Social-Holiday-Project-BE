@@ -1,8 +1,9 @@
 import { Conversation } from 'src/conversations/entities/conversation.entity';
+import { Participant } from 'src/participants/entities/participant.entity';
 
 export interface IMessage {
   id: number;
-  author: number;
+  author: Participant;
   conversation: Conversation;
   content: string;
   // status: string;

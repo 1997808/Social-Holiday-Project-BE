@@ -10,6 +10,7 @@ import {
   OneToMany,
   ManyToMany,
 } from 'typeorm';
+import { Participant } from 'src/participants/entities/participant.entity';
 
 @Entity()
 export class User {
@@ -52,14 +53,14 @@ export class User {
   @OneToMany(() => Friendship, (friendship) => friendship.receiver)
   receivedFriendRequests: Friendship[];
 
-  @ManyToMany(() => Conversation, (conversation) => conversation.participants)
-  conversations: Conversation[];
+  // @ManyToMany(() => Conversation, (conversation) => conversation.participants)
+  // conversations: Conversation[];
 
-  @OneToMany(() => Message, (message) => message.author)
-  messages: Message[];
+  // @OneToMany(() => Message, (message) => message.author)
+  // messages: Message[];
 
-  // @ManyToMany(() => Participant, (participant) => participant.userid)
-  // participants: Participant[];
+  @OneToMany(() => Participant, (participant) => participant.user)
+  participants: Participant[];
 
   @OneToMany(() => Votepost, (votepost) => votepost.user)
   voteposts: Votepost[];
