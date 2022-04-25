@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
-import { User } from 'src/users/entities/user.entity';
+// import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 // import { CreateConversationDto } from './dto/create-conversation.dto';
 // import { UpdateConversationDto } from './dto/update-conversation.dto';
@@ -25,10 +25,20 @@ export class ConversationsService extends BaseService<Conversation> {
     return await this.repository.save(data);
   }
 
-  async findConversation(conversationIds: number[]): Promise<any> {
+  async findConversationByIds(conversationIds: number[]): Promise<any> {
     const result = await this.repository.findByIds(conversationIds, {
       relations: ['participants', 'participants.user'],
     });
+    return result;
+  }
+
+  async findConversation(id: number): Promise<Conversation> {
+    const result = await this.repository.findOne(
+      { id },
+      {
+        relations: ['participants', 'participants.user'],
+      },
+    );
     return result;
   }
 }

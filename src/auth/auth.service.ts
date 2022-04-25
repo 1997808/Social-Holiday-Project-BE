@@ -58,7 +58,7 @@ export class AuthService {
     }
   }
 
-  async getUserFromToken(token: string) {
+  async getUserFromToken(token: string): Promise<any> {
     try {
       const jwt = token.replace('Bearer ', '');
       if (jwt !== 'null') {
@@ -69,9 +69,9 @@ export class AuthService {
           return { user: result };
         }
       }
-      return false;
+      return null;
     } catch (err) {
-      return false;
+      return null;
     }
   }
 

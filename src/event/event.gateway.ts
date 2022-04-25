@@ -22,9 +22,7 @@ import { AuthService } from 'src/auth/auth.service';
     origin: '*',
   },
 })
-export class EventGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly eventService: EventService,
     private readonly authService: AuthService,
@@ -33,6 +31,8 @@ export class EventGateway
     private readonly conversationService: ConversationsService,
   ) {}
   @WebSocketServer() server: Server;
+
+  connectedUsers: number[] = [];
 
   @SubscribeMessage('events')
   handleEvent(payload: string) {
@@ -78,15 +78,34 @@ export class EventGateway
     return this.eventService.remove(id);
   }
 
-  afterInit(server: Server) {
-    console.log('Init');
+  // afterInit(server: Server) {
+  //   console.log('Init');
+  // }
+
+  async handleDisconnect(client: Socket) {
+    const user = await this.authService.getUserFromToken(
+      client.handshake.auth.token,
+    );
+    if (user) {
+      const userPos = this.connectedUsers.indexOf(user.id);
+      if (userPos > -1) {
+        this.connectedUsers = [
+          ...this.connectedUsers.slice(0, userPos),
+          ...this.connectedUsers.slice(userPos + 1),
+        ];
+        this.server.emit('users', this.connectedUsers);
+      }
+    }
+    // console.log(`Client disconnected: ${client.id}`);
   }
 
-  handleDisconnect(client: Socket) {
-    console.log(`Client disconnected: ${client.id}`);
-  }
-
-  async handleConnection(client: Socket, ...args: any[]) {
-    await this.authService.getUserFromToken(client.handshake.auth.token);
+  async handleConnection(client: Socket) {
+    const user = await this.authService.getUserFromToken(
+      client.handshake.auth.token,
+    );
+    if (user) {
+      this.connectedUsers = [...this.connectedUsers, user.id];
+      this.server.emit('users', this.connectedUsers);
+    }
   }
 }

@@ -32,10 +32,6 @@ export class ConversationsController {
     @Body() createConversationDto: CreateConversationDto,
   ) {
     const userids = createConversationDto.userids;
-    // forEach error here
-    // for (const item of createConversationDto.userids) {
-    //   const user = await this.usersService.findOne({ id: item });
-    // }
     userids.push(req.user.id);
     const data = {
       type: createConversationDto.type,
@@ -48,15 +44,24 @@ export class ConversationsController {
   }
 
   @Get()
-  async findConversation(@Request() req) {
+  async findConversationForUser(@Request() req) {
     const conversationIds =
       await this.participantsService.findConversationForUser(req.user.id);
-    return await this.conversationsService.findConversation(conversationIds);
+    return await this.conversationsService.findConversationByIds(
+      conversationIds,
+    );
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.conversationsService.findOne(+id);
+  async findConversation(@Param('id') id: string, @Request() req) {
+    const result = await this.conversationsService.findConversation(+id);
+    if (result.type === 0) {
+      const participant = result.participants.filter(
+        (item) => item.userId !== req.user.id,
+      );
+      result.title = participant[0].user.name;
+    }
+    return result;
   }
 
   @Patch(':id')
