@@ -17,6 +17,12 @@ import { ParticipantsService } from 'src/participants/participants.service';
 import { ConversationsService } from 'src/conversations/conversations.service';
 import { AuthService } from 'src/auth/auth.service';
 
+class handleMessage {
+  content: string;
+  author: number;
+  conversationid: number;
+}
+
 @WebSocketGateway({
   cors: {
     origin: '*',
@@ -41,7 +47,7 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return 'absolute nothing';
   }
 
-  @SubscribeMessage('createEvent')
+  @SubscribeMessage('listenMessage')
   async listenForMessage(
     @MessageBody() data: string,
     @ConnectedSocket() socket: Socket,
@@ -58,19 +64,21 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return this.messageService.findAll();
   }
 
-  async saveMessage(content: string, author: number, conversationid: number) {
-    const conversation = await this.conversationService.findById(
-      conversationid,
-    );
-    const participant = await this.participateService.findOne({
-      userId: author,
-    });
-    const newMessage = await this.messageService.create({
-      content,
-      conversation,
-      author: participant,
-    });
-    return newMessage;
+  @SubscribeMessage('handleMessage')
+  async saveMessage(@MessageBody() data: handleMessage) {
+    console.log(data);
+    // const conversation = await this.conversationService.findById(
+    //   conversationid,
+    // );
+    // const participant = await this.participateService.findOne({
+    //   userId: author,
+    // });
+    // const newMessage = await this.messageService.create({
+    //   content,
+    //   conversation,
+    //   author: participant,
+    // });
+    // return newMessage;
   }
 
   @SubscribeMessage('removeEvent')
