@@ -18,3 +18,8 @@ export enum CONVERSATION_TYPE {
   DIRECT = 0,
   GROUP = 1,
 }
+
+export const RES_MESSAGE = {
+  FAILED: 'FAILED',
+  SUCCESS: 'SUCCESS',
+};

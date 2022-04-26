@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { RES_MESSAGE } from 'src/common/constant';
 
 @Injectable()
 export class AuthService {
@@ -66,7 +67,7 @@ export class AuthService {
         if (data) {
           const user = await this.usersService.findById(data.id);
           const { password, ...result } = user;
-          return { user: result };
+          return result;
         }
       }
       return null;
@@ -85,9 +86,9 @@ export class AuthService {
         password: pass,
       });
       if (newUser) {
-        return { message: 'success' };
+        return { message: RES_MESSAGE.SUCCESS };
       } else {
-        return { message: 'failed' };
+        return { message: RES_MESSAGE.FAILED };
       }
     }
   }

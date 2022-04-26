@@ -11,3 +11,8 @@ export interface IMessage {
   updatedAt: Date;
   replyTo?: number;
 }
+
+export interface IMessagePaginate {
+  data: IMessage[];
+  count: number;
+}

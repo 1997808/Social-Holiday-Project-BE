@@ -16,11 +16,12 @@ import { MessagesService } from 'src/messages/messages.service';
 import { ParticipantsService } from 'src/participants/participants.service';
 import { ConversationsService } from 'src/conversations/conversations.service';
 import { AuthService } from 'src/auth/auth.service';
+import { RES_MESSAGE } from 'src/common/constant';
 
-class handleMessage {
+class HandleMessage {
   content: string;
-  author: number;
-  conversationid: number;
+  conversationId: number;
+  userId: number;
 }
 
 @WebSocketGateway({
@@ -65,20 +66,25 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('handleMessage')
-  async saveMessage(@MessageBody() data: handleMessage) {
-    console.log(data);
-    // const conversation = await this.conversationService.findById(
-    //   conversationid,
-    // );
-    // const participant = await this.participateService.findOne({
-    //   userId: author,
-    // });
-    // const newMessage = await this.messageService.create({
-    //   content,
-    //   conversation,
-    //   author: participant,
-    // });
-    // return newMessage;
+  async saveMessage(@MessageBody() data: HandleMessage) {
+    const participant = await this.participateService.findOne({
+      userId: data.userId,
+      conversationId: data.conversationId,
+    });
+    const conversation = await this.conversationService.findById(
+      data.conversationId,
+    );
+    if (participant && conversation) {
+      const newMessage = await this.messageService.create({
+        content: data.content,
+        conversation: conversation,
+        author: participant,
+      });
+      console.log(newMessage);
+      this.server.emit('message', { data: 123 });
+      return newMessage;
+    }
+    return { message: RES_MESSAGE.FAILED };
   }
 
   @SubscribeMessage('removeEvent')

@@ -13,7 +13,7 @@ import { FriendshipsService } from './friendships.service';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
 import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
-import { FRIENDSHIP_STATUS } from 'src/common/constant';
+import { FRIENDSHIP_STATUS, RES_MESSAGE } from 'src/common/constant';
 
 @UseGuards(JwtAuthGuard)
 @Controller('friendships')
@@ -100,7 +100,7 @@ export class FriendshipsController {
         updateFriendshipDto.id,
       );
     } else {
-      return { message: 'failed' };
+      return { message: RES_MESSAGE.FAILED };
     }
   }
 
@@ -119,7 +119,7 @@ export class FriendshipsController {
         updateFriendshipDto.id,
       );
     } else {
-      return { message: 'failed' };
+      return { message: RES_MESSAGE.FAILED };
     }
   }
 
@@ -138,7 +138,7 @@ export class FriendshipsController {
         updateFriendshipDto.id,
       );
     } else {
-      return { message: 'failed' };
+      return { message: RES_MESSAGE.FAILED };
     }
   }
 
