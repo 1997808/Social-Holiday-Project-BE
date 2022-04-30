@@ -24,8 +24,8 @@ export class MessagesController {
   }
 
   @Post('conversation')
-  getConversationMessage(@Body() query: MessageQueryDto) {
-    return this.messagesService.getConversationMessage(query);
+  getConversationMessages(@Body() query: MessageQueryDto) {
+    return this.messagesService.getConversationMessages(query);
   }
 
   @Get(':id')

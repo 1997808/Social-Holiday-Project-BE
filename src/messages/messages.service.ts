@@ -21,10 +21,9 @@ export class MessagesService extends BaseService<Message> {
     return await this.repository.save(data);
   }
 
-  async getConversationMessage(
+  async getConversationMessages(
     query: MessageQueryDto,
   ): Promise<IMessagePaginate> {
-    console.log(query);
     const { conversationId } = query;
     const take = query.take || 15;
     const page = query.page || 1;
@@ -45,5 +44,16 @@ export class MessagesService extends BaseService<Message> {
       data: result,
       count: total,
     };
+  }
+
+  async getConversationMessage(id: number): Promise<Message> {
+    const result = await this.repository
+      .createQueryBuilder('message')
+      .where('message.id = :id', { id })
+      .leftJoinAndSelect('message.author', 'participants')
+      .leftJoinAndSelect('participants.user', 'user')
+      .getOne();
+
+    return result;
   }
 }

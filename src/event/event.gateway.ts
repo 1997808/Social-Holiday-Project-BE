@@ -43,7 +43,6 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('events')
   handleEvent(payload: string) {
-    console.log('client doin something');
     this.server.emit('clientEvent', { data: 123 });
     return 'absolute nothing';
   }
@@ -80,9 +79,11 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
         conversation: conversation,
         author: participant,
       });
-      console.log(newMessage);
-      this.server.emit('message', { data: 123 });
-      return newMessage;
+      const message = await this.messageService.getConversationMessage(
+        newMessage.id,
+      );
+      this.server.emit('newMessage', message);
+      return { message: RES_MESSAGE.SUCCESS };
     }
     return { message: RES_MESSAGE.FAILED };
   }
@@ -110,7 +111,6 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
         this.server.emit('users', this.connectedUsers);
       }
     }
-    // console.log(`Client disconnected: ${client.id}`);
   }
 
   async handleConnection(client: Socket) {
