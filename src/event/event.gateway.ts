@@ -24,6 +24,11 @@ class HandleMessage {
   userId: number;
 }
 
+class HandleConversation {
+  prevConversation?: number;
+  conversation?: number;
+}
+
 @WebSocketGateway({
   cors: {
     origin: '*',
@@ -45,6 +50,25 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleEvent(payload: string) {
     this.server.emit('clientEvent', { data: 123 });
     return 'absolute nothing';
+  }
+
+  @SubscribeMessage('conversationSwitch')
+  async conversationSwitch(
+    @MessageBody() data: HandleConversation,
+    @ConnectedSocket() socket: Socket,
+  ) {
+    const { prevConversation, conversation } = data;
+    socket.rooms.forEach((item) => {
+      if (item.includes('conversation')) {
+        socket.leave(item);
+      }
+    });
+    if (prevConversation) {
+      socket.leave('conversation ' + prevConversation.toString());
+    }
+    if (conversation) {
+      socket.join('conversation ' + conversation.toString());
+    }
   }
 
   @SubscribeMessage('listenMessage')
@@ -82,7 +106,9 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const message = await this.messageService.getConversationMessage(
         newMessage.id,
       );
-      this.server.emit('newMessage', message);
+      this.server
+        .to('conversation ' + data.conversationId.toString())
+        .emit('newMessage', message);
       return { message: RES_MESSAGE.SUCCESS };
     }
     return { message: RES_MESSAGE.FAILED };
