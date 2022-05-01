@@ -1,10 +1,18 @@
+import { Conversation } from 'src/conversations/entities/conversation.entity';
+import { Participant } from 'src/participants/entities/participant.entity';
+
 export interface IMessage {
   id: number;
-  author: number;
-  conversationid: number;
+  author: Participant;
+  conversation: Conversation;
   content: string;
-  status: string;
+  // status: string;
   createdAt: Date;
   updatedAt: Date;
-  replyTo: number;
+  replyTo?: number;
+}
+
+export interface IMessagePaginate {
+  data: IMessage[];
+  count: number;
 }

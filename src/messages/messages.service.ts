@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
 import { Repository } from 'typeorm';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
+import { CreateMessageDto, MessageQueryDto } from './dto/create-message.dto';
 import { Message } from './entities/message.entity';
-import { IMessage } from './entities/message.interface';
+import { IMessage, IMessagePaginate } from './entities/message.interface';
 
 @Injectable()
 export class MessagesService extends BaseService<Message> {
@@ -20,5 +19,41 @@ export class MessagesService extends BaseService<Message> {
       updatedAt: date,
     };
     return await this.repository.save(data);
+  }
+
+  async getConversationMessages(
+    query: MessageQueryDto,
+  ): Promise<IMessagePaginate> {
+    const { conversationId } = query;
+    const take = query.take || 15;
+    const page = query.page || 1;
+    const skipSocket = query.skipSocket || 0;
+    const skip = (page - 1) * take + skipSocket;
+
+    const [result, total] = await this.repository
+      .createQueryBuilder('message')
+      .where('message.conversation.id = :conversationId', { conversationId })
+      .leftJoinAndSelect('message.author', 'participants')
+      .leftJoinAndSelect('participants.user', 'user')
+      .orderBy('message.createdAt', 'DESC')
+      .skip(skip)
+      .take(take)
+      .getManyAndCount();
+
+    return {
+      data: result,
+      count: total,
+    };
+  }
+
+  async getConversationMessage(id: number): Promise<Message> {
+    const result = await this.repository
+      .createQueryBuilder('message')
+      .where('message.id = :id', { id })
+      .leftJoinAndSelect('message.author', 'participants')
+      .leftJoinAndSelect('participants.user', 'user')
+      .getOne();
+
+    return result;
   }
 }

@@ -29,16 +29,16 @@ export class PostService extends BaseService<Post> {
     const take = query ? query.take : 20;
     const skip = query ? query.skip : 0;
 
-    const [result, total] = await this.repository.findAndCount({
+    const [result, count] = await this.repository.findAndCount({
       order: { createdAt: 'DESC' },
       take,
       skip,
-      relations: ['author'],
+      relations: ['author', 'votes'],
     });
 
     return {
       data: result,
-      count: total,
+      count: count,
     };
   }
 }
