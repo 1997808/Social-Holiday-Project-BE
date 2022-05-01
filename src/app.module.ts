@@ -13,8 +13,9 @@ import { CommentsModule } from './comments/comments.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { LikecommentsModule } from './likecomments/likecomments.module';
-import { LikepostsModule } from './likeposts/likeposts.module';
+import { VotepostsModule } from './voteposts/voteposts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -38,8 +39,9 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     FriendshipsModule,
     NotificationsModule,
     LikecommentsModule,
-    LikepostsModule,
+    VotepostsModule,
     CloudinaryModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],

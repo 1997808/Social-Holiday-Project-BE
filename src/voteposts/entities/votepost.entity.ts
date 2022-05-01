@@ -4,20 +4,27 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  ManyToMany,
   Column,
+  // OneToOne,
 } from 'typeorm';
 
 @Entity()
-export class Likepost {
+export class Votepost {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
   @ManyToOne(() => Post, (post) => post.id)
-  postid: number;
+  post: number;
 
-  // @Column()
-  @ManyToMany(() => User, (user) => user.id)
-  userid: number;
+  @ManyToOne(() => User, (user) => user.id)
+  user: User;
+
+  @Column({ nullable: true })
+  vote: number;
+
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }

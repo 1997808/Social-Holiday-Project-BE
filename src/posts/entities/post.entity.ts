@@ -1,5 +1,12 @@
+import { Votepost } from 'src/voteposts/entities/votepost.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Post {
@@ -21,4 +28,13 @@ export class Post {
 
   @Column('text', { array: true, nullable: true })
   imageUrl: string[];
+
+  @OneToMany(() => Votepost, (votepost) => votepost.post)
+  votes: Votepost[];
+
+  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == 1))
+  // upvotes: Votepost[];
+
+  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == -1))
+  // downvotes: Votepost[];
 }

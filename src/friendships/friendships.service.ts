@@ -33,8 +33,8 @@ export class FriendshipsService extends BaseService<Friendship> {
   async checkExistedFriendRequest(
     creatorId: number,
     receiverId: number,
-  ): Promise<boolean> {
-    const result = await this.repository.findOne({
+  ): Promise<Friendship> {
+    return await this.repository.findOne({
       where: [
         {
           creator: creatorId,
@@ -48,8 +48,6 @@ export class FriendshipsService extends BaseService<Friendship> {
         },
       ],
     });
-    if (result) return true;
-    return false;
   }
 
   async findPendingFriendRequest(userId: number) {
@@ -127,5 +125,19 @@ export class FriendshipsService extends BaseService<Friendship> {
       }
     });
     return result;
+  }
+
+  async checkUserFriendRequestStatus(creatorId: number, receiverId: number) {
+    const data = await this.repository.findOne({
+      where: [
+        { creator: creatorId, receiver: receiverId },
+        { creator: receiverId, receiver: creatorId },
+      ],
+    });
+    if (data) {
+      return data.status;
+    } else {
+      return FRIENDSHIP_STATUS.NULL;
+    }
   }
 }
