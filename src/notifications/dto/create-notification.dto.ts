@@ -3,6 +3,4 @@ export class CreateNotificationDto {
   userid: number;
   content: string;
   contentUrl: string;
-  // createdAt: Date;
-  // updatedAt: Date;
 }

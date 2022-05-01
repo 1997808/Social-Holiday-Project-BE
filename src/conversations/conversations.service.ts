@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
-// import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
-// import { CreateConversationDto } from './dto/create-conversation.dto';
-// import { UpdateConversationDto } from './dto/update-conversation.dto';
 import { Conversation } from './entities/conversation.entity';
 import { IConversation } from './entities/conversation.interface';
 

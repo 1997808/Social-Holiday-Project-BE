@@ -2,11 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/common/base.service';
 import { VOTE } from 'src/common/constant';
-// import { Post } from 'src/posts/entities/post.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
-// import { CreateVotepostDto } from './dto/create-votepost.dto';
-// import { UpdateVotepostDto } from './dto/update-votepost.dto';
 import { Votepost } from './entities/votepost.entity';
 import { IVotepost } from './entities/votepost.interface';
 

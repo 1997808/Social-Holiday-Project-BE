@@ -3,7 +3,5 @@ export class CreateCommentDto {
   author: number;
   postid: number;
   content: string;
-  // createdAt: Date;
-  // updatedAt: Date;
   replyTo: number;
 }

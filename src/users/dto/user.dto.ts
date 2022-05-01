@@ -5,8 +5,6 @@ export class UserDto {
   readonly email: string;
   readonly password: string;
   readonly profile: string;
-  // readonly createdAt: Date;
-  // readonly updatedAt: Date;
   readonly profilePictureUrl: string;
 }
 
