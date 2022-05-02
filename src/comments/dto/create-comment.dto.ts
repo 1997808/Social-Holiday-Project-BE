@@ -1,7 +1,5 @@
 export class CreateCommentDto {
-  id: number;
-  author: number;
-  postid: number;
+  post: number;
   content: string;
-  replyTo: number;
+  replyTo?: number;
 }

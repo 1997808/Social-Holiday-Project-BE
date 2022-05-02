@@ -8,10 +8,10 @@ export class Comment {
   id: number;
 
   @ManyToOne(() => User, (user) => user.id)
-  author: number;
+  author: User;
 
   @ManyToOne(() => Post, (post) => post.id)
-  postid: number;
+  post: number;
 
   @Column()
   content: string;

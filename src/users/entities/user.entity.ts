@@ -3,6 +3,7 @@ import { Votepost } from 'src/voteposts/entities/votepost.entity';
 import { Post } from 'src/posts/entities/post.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Participant } from 'src/participants/entities/participant.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Entity()
 export class User {
@@ -38,6 +39,9 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author)
   posts: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 
   @OneToMany(() => Friendship, (friendship) => friendship.creator)
   sentFriendRequests: Friendship[];

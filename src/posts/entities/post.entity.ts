@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Entity()
 export class Post {
@@ -30,4 +31,7 @@ export class Post {
 
   @OneToMany(() => Votepost, (votepost) => votepost.post)
   votes: Votepost[];
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 }

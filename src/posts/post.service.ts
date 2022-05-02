@@ -40,4 +40,13 @@ export class PostService extends BaseService<Post> {
       count: count,
     };
   }
+
+  async findPostDetail(id: number): Promise<Post> {
+    const result = await this.repository.findOne({
+      where: [{ id: id }],
+      relations: ['author', 'votes'],
+    });
+
+    return result;
+  }
 }
