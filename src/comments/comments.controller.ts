@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { CommentsService } from './comments.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
+import { CommentQueryDto, CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @UseGuards(JwtAuthGuard)
@@ -24,9 +24,9 @@ export class CommentsController {
     return this.commentsService.create(createCommentDto, req.user);
   }
 
-  @Get()
-  findAll() {
-    return this.commentsService.findAll();
+  @Post('post')
+  getPostComments(@Body() query: CommentQueryDto) {
+    return this.commentsService.getPostComments(query);
   }
 
   @Get(':id')

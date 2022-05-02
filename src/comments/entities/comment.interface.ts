@@ -9,3 +9,8 @@ export interface IComment {
   updatedAt: Date;
   replyTo: number;
 }
+
+export interface ICommentPaginate {
+  data: IComment[];
+  count: number;
+}
