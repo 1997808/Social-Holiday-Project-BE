@@ -4,7 +4,6 @@ import { BaseService } from 'src/common/base.service';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 import { IComment } from './entities/comment.interface';
 
