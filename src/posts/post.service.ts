@@ -32,7 +32,7 @@ export class PostService extends BaseService<Post> {
       order: { createdAt: 'DESC' },
       take,
       skip,
-      relations: ['author', 'votes'],
+      relations: ['author', 'votes', 'comments'],
     });
 
     return {
@@ -44,7 +44,7 @@ export class PostService extends BaseService<Post> {
   async findPostDetail(id: number): Promise<Post> {
     const result = await this.repository.findOne({
       where: [{ id: id }],
-      relations: ['author', 'votes'],
+      relations: ['author', 'votes', 'comments'],
     });
 
     return result;

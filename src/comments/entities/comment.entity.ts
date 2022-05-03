@@ -1,6 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Post } from 'src/posts/entities/post.entity';
 import { User } from 'src/users/entities/user.entity';
+import { Votecomment } from 'src/votecomments/entities/votecomment.entity';
 
 @Entity()
 export class Comment {
@@ -21,6 +28,9 @@ export class Comment {
 
   @Column()
   updatedAt: Date;
+
+  @OneToMany(() => Votecomment, (votecomment) => votecomment.comment)
+  votes: Votecomment[];
 
   @Column({ nullable: true })
   replyTo: number;
