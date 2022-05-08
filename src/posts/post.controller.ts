@@ -34,6 +34,11 @@ export class PostController {
     return await this.postService.findAllPost(query);
   }
 
+  @Get('profile/:userId')
+  async findProfilePost(@Body() query, @Param('userId') userId: string) {
+    return await this.postService.findProfilePost(query, +userId);
+  }
+
   @Get(':id')
   async findPostDetail(@Param('id') id: string) {
     return await this.postService.findPostDetail(+id);

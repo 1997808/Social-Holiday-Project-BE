@@ -49,4 +49,22 @@ export class PostService extends BaseService<Post> {
 
     return result;
   }
+
+  async findProfilePost(query, userId): Promise<any> {
+    const take = query ? query.take : 20;
+    const skip = query ? query.skip : 0;
+
+    const [result, count] = await this.repository.findAndCount({
+      where: { author: userId },
+      order: { createdAt: 'DESC' },
+      take,
+      skip,
+      relations: ['author', 'votes', 'comments'],
+    });
+
+    return {
+      data: result,
+      count: count,
+    };
+  }
 }
