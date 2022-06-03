@@ -27,6 +27,7 @@ import { VotecommentsModule } from './votecomments/votecomments.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
+      // logging: true,
       synchronize: true, // shouldn't be used in production - may lose data
     }),
     PostsModule,

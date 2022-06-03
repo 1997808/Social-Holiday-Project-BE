@@ -44,6 +44,12 @@ export class UsersController {
     return await this.usersService.findUserProfileById(+id);
   }
 
+  // @UseGuards(JwtAuthGuard)
+  // @Get('/voteposts/:id')
+  // async findUserLikedPostsById(@Param('id') id: string) {
+  //   return await this.usersService.findUserLikedPostsById(+id);
+  // }
+
   @UseGuards(JwtAuthGuard)
   @Post('/profile')
   async update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
