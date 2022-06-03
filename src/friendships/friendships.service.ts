@@ -139,4 +139,14 @@ export class FriendshipsService extends BaseService<Friendship> {
       return FRIENDSHIP_STATUS.NULL;
     }
   }
+
+  async findUserFriendRequest(creatorId: number, receiverId: number) {
+    const data = await this.repository.findOne({
+      where: [
+        { creator: creatorId, receiver: receiverId },
+        { creator: receiverId, receiver: creatorId },
+      ],
+    });
+    return data;
+  }
 }
