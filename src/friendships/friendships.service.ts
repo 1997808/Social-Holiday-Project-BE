@@ -4,7 +4,6 @@ import { BaseService } from 'src/common/base.service';
 import { FRIENDSHIP_STATUS } from 'src/common/constant';
 import { Repository } from 'typeorm';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
-// import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { Friendship } from './entities/friendship.entity';
 import { IFriendship } from './entities/friendship.interface';
 

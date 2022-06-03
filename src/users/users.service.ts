@@ -66,7 +66,6 @@ export class UsersService extends BaseService<User> {
   }
 
   async findUserProfileById(id: number): Promise<any> {
-    // return await this.repository.findOne({ id }, { relations: ['posts'] });
     return await this.repository
       .createQueryBuilder('users')
       .where(`users.id = ${id}`)

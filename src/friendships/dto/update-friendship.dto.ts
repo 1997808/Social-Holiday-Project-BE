@@ -3,6 +3,4 @@ export class UpdateFriendshipDto {
   creator?: number;
   receiver?: number;
   status: string;
-  // createdAt: Date;
-  updatedAt: Date;
 }

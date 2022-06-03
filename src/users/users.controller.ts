@@ -16,7 +16,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-// import { UserQueryDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -32,12 +31,6 @@ export class UsersController {
   async findOne(@Request() req) {
     return await this.usersService.findById(req.user.id);
   }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Get('/all')
-  // async findAll() {
-  //   return await this.usersService.index();
-  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('/search')

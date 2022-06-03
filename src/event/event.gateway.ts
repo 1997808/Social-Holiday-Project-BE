@@ -4,13 +4,10 @@ import {
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
-  OnGatewayInit,
   WebSocketServer,
   ConnectedSocket,
 } from '@nestjs/websockets';
 import { EventService } from './event.service';
-// import { CreateEventDto } from './dto/create-event.dto';
-// import { UpdateEventDto } from './dto/update-event.dto';
 import { Socket, Server } from 'socket.io';
 import { MessagesService } from 'src/messages/messages.service';
 import { ParticipantsService } from 'src/participants/participants.service';
@@ -118,10 +115,6 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   remove(@MessageBody() id: number) {
     return this.eventService.remove(id);
   }
-
-  // afterInit(server: Server) {
-  //   console.log('Init');
-  // }
 
   async handleDisconnect(client: Socket) {
     const user = await this.authService.getUserFromToken(

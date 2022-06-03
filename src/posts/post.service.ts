@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
-// import { UpdatePostDto } from './dto/update-post.dto';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { IPost } from './entities/post.interface';
 import { Post } from './entities/post.entity';
 import { BaseService } from 'src/common/base.service';
@@ -33,7 +32,34 @@ export class PostService extends BaseService<Post> {
       order: { createdAt: 'DESC' },
       take,
       skip,
-      relations: ['author', 'votes'],
+      relations: ['author', 'votes', 'comments'],
+    });
+
+    return {
+      data: result,
+      count: count,
+    };
+  }
+
+  async findPostDetail(id: number): Promise<Post> {
+    const result = await this.repository.findOne({
+      where: [{ id: id }],
+      relations: ['author', 'votes', 'comments'],
+    });
+
+    return result;
+  }
+
+  async findProfilePost(query, userId): Promise<any> {
+    const take = query ? query.take : 20;
+    const skip = query ? query.skip : 0;
+
+    const [result, count] = await this.repository.findAndCount({
+      where: { author: userId },
+      order: { createdAt: 'DESC' },
+      take,
+      skip,
+      relations: ['author', 'votes', 'comments'],
     });
 
     return {

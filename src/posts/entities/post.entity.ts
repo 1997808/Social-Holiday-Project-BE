@@ -7,13 +7,13 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { Comment } from 'src/comments/entities/comment.entity';
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
   @ManyToOne(() => User, (user) => user.posts)
   author: User;
 
@@ -32,9 +32,6 @@ export class Post {
   @OneToMany(() => Votepost, (votepost) => votepost.post)
   votes: Votepost[];
 
-  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == 1))
-  // upvotes: Votepost[];
-
-  // @OneToMany(() => Votepost, (votepost) => (votepost.post, votepost.vote == -1))
-  // downvotes: Votepost[];
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 }
