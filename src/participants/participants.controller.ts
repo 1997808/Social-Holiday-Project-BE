@@ -24,16 +24,6 @@ export class ParticipantsController {
     return this.participantsService.create(createParticipantDto);
   }
 
-  // @Get()
-  // findConversationForUser(@Request() req) {
-  //   return this.participantsService.findConversationForUser(req.user.id);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.participantsService.findAll();
-  // }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.participantsService.findOne(+id);

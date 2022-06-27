@@ -4,7 +4,6 @@ import { BaseService } from 'src/common/base.service';
 import { FRIENDSHIP_STATUS } from 'src/common/constant';
 import { Repository } from 'typeorm';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
-// import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { Friendship } from './entities/friendship.entity';
 import { IFriendship } from './entities/friendship.interface';
 
@@ -139,5 +138,15 @@ export class FriendshipsService extends BaseService<Friendship> {
     } else {
       return FRIENDSHIP_STATUS.NULL;
     }
+  }
+
+  async findUserFriendRequest(creatorId: number, receiverId: number) {
+    const data = await this.repository.findOne({
+      where: [
+        { creator: creatorId, receiver: receiverId },
+        { creator: receiverId, receiver: creatorId },
+      ],
+    });
+    return data;
   }
 }

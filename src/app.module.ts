@@ -12,10 +12,10 @@ import { ParticipantsModule } from './participants/participants.module';
 import { CommentsModule } from './comments/comments.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { NotificationsModule } from './notifications/notifications.module';
-import { LikecommentsModule } from './likecomments/likecomments.module';
 import { VotepostsModule } from './voteposts/voteposts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { EventModule } from './event/event.module';
+import { VotecommentsModule } from './votecomments/votecomments.module';
 
 @Module({
   imports: [
@@ -27,6 +27,7 @@ import { EventModule } from './event/event.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
+      // logging: true,
       synchronize: true, // shouldn't be used in production - may lose data
     }),
     PostsModule,
@@ -38,10 +39,10 @@ import { EventModule } from './event/event.module';
     CommentsModule,
     FriendshipsModule,
     NotificationsModule,
-    LikecommentsModule,
     VotepostsModule,
     CloudinaryModule,
     EventModule,
+    VotecommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

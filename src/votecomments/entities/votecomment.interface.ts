@@ -1,6 +1,6 @@
 import { User } from 'src/users/entities/user.entity';
 
-export interface IVotepost {
+export interface IVotecomment {
   id?: number;
   post?: number;
   user?: User;

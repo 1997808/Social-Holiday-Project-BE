@@ -6,7 +6,6 @@ export interface IMessage {
   author: Participant;
   conversation: Conversation;
   content: string;
-  // status: string;
   createdAt: Date;
   updatedAt: Date;
   replyTo?: number;

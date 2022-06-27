@@ -6,11 +6,9 @@ export class Friendship {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
   @ManyToOne(() => User, (user) => user.sentFriendRequests)
   creator: number;
 
-  // @Column()
   @ManyToOne(() => User, (user) => user.receivedFriendRequests)
   receiver: number;
 

@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -16,7 +15,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-// import { UserQueryDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -33,12 +31,6 @@ export class UsersController {
     return await this.usersService.findById(req.user.id);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('/all')
-  // async findAll() {
-  //   return await this.usersService.index();
-  // }
-
   @UseGuards(JwtAuthGuard)
   @Post('/search')
   async findUserByName(@Body() query) {
@@ -50,6 +42,12 @@ export class UsersController {
   async findUserProfileById(@Param('id') id: string) {
     return await this.usersService.findUserProfileById(+id);
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Get('/voteposts/:id')
+  // async findUserLikedPostsById(@Param('id') id: string) {
+  //   return await this.usersService.findUserLikedPostsById(+id);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('/profile')

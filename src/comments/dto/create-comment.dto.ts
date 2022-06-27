@@ -1,9 +1,12 @@
 export class CreateCommentDto {
-  id: number;
-  author: number;
-  postid: number;
+  post: number;
   content: string;
-  // createdAt: Date;
-  // updatedAt: Date;
-  replyTo: number;
+  replyTo?: number;
+}
+
+export class CommentQueryDto {
+  readonly take?: number;
+  readonly page?: number;
+  readonly skipSocket?: number; //comment got by listen socket
+  readonly postId?: number;
 }

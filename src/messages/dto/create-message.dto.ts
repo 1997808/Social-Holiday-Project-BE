@@ -5,7 +5,6 @@ export class CreateMessageDto {
   author: Participant;
   conversation: Conversation;
   content: string;
-  // status?: string;
   replyTo?: number;
 }
 

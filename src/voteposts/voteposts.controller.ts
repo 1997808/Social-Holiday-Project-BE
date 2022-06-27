@@ -24,11 +24,6 @@ export class VotepostsController {
     private readonly postsService: PostService,
   ) {}
 
-  // @Post()
-  // create(@Body() createVotepostDto: CreateVotepostDto, @Request() req) {
-  //   return this.votepostsService.create(req.user, createVotepostDto);
-  // }
-
   @Post('/handle')
   async handleVotepost(
     @Body() createVotepostDto: CreateVotepostDto,

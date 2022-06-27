@@ -80,6 +80,15 @@ export class FriendshipsController {
     return status;
   }
 
+  @Get('find/:userid')
+  async findUserFriendRequest(@Request() req, @Param('userid') userid: string) {
+    const request = await this.friendshipsService.findUserFriendRequest(
+      req.user.id,
+      +userid,
+    );
+    return request;
+  }
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.friendshipsService.findOne(+id);
