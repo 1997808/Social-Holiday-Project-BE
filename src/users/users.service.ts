@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { IUser, IUserPaginate } from './entities/user.interface';
@@ -76,6 +75,18 @@ export class UsersService extends BaseService<User> {
       })
       .getOne();
   }
+
+  // async findUserLikedPostsById(id: number): Promise<any> {
+  //   return await this.repository
+  //     .createQueryBuilder('users')
+  //     .where(`users.id = ${id}`)
+  //     .leftJoinAndSelect('users.voteposts', 'voteposts')
+  //     .leftJoinAndMapOne('voteposts.post', 'posts', 'postid')
+  //     .orderBy({
+  //       'posts.createdAt': 'DESC',
+  //     })
+  //     .getOne();
+  // }
 
   async uploadImageToCloudinary(file: Express.Multer.File) {
     return await this.cloudinary.uploadImage(file).catch(() => {

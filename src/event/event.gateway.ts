@@ -14,7 +14,14 @@ import { ParticipantsService } from 'src/participants/participants.service';
 import { ConversationsService } from 'src/conversations/conversations.service';
 import { AuthService } from 'src/auth/auth.service';
 import { RES_MESSAGE } from 'src/common/constant';
+import { User } from 'src/users/entities/user.entity';
+import { Post } from 'src/posts/entities/post.entity';
+import { PostService } from 'src/posts/post.service';
 
+class HandleTyping {
+  conversationId: number;
+  userId: number;
+}
 class HandleMessage {
   content: string;
   conversationId: number;
@@ -35,6 +42,7 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly eventService: EventService,
     private readonly authService: AuthService,
+    private readonly postService: PostService,
     private readonly messageService: MessagesService,
     private readonly participateService: ParticipantsService,
     private readonly conversationService: ConversationsService,
@@ -42,6 +50,7 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
   connectedUsers: number[] = [];
+  typingUser: User[] = [];
 
   @SubscribeMessage('events')
   handleEvent(payload: string) {
@@ -106,6 +115,78 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.server
         .to('conversation ' + data.conversationId.toString())
         .emit('newMessage', message);
+      return { message: RES_MESSAGE.SUCCESS };
+    }
+    return { message: RES_MESSAGE.FAILED };
+  }
+
+  @SubscribeMessage('handleTyping')
+  async handleTyping(
+    @MessageBody() data: HandleTyping,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const user = await this.authService.getUserFromToken(
+      client.handshake.auth.token,
+    );
+    const participant = await this.participateService.findOne({
+      userId: data.userId,
+      conversationId: data.conversationId,
+    });
+    const conversation = await this.conversationService.findById(
+      data.conversationId,
+    );
+    if (user && participant && conversation) {
+      const userPos = this.typingUser.findIndex((object) => {
+        return object.id === user.id;
+      });
+      if (userPos == -1) {
+        // neu chua ton tai thi them vao
+        this.typingUser = [...this.typingUser, user];
+      }
+      this.server
+        .to('conversation ' + data.conversationId.toString())
+        .emit('someoneTyping', this.typingUser);
+      return { message: RES_MESSAGE.SUCCESS };
+    }
+    return { message: RES_MESSAGE.FAILED };
+  }
+
+  @SubscribeMessage('handleTypingDone')
+  async handleTypingDone(
+    @MessageBody() data: HandleTyping,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const user = await this.authService.getUserFromToken(
+      client.handshake.auth.token,
+    );
+    const participant = await this.participateService.findOne({
+      userId: data.userId,
+      conversationId: data.conversationId,
+    });
+    const conversation = await this.conversationService.findById(
+      data.conversationId,
+    );
+    if (user && participant && conversation) {
+      const userPos = this.typingUser.indexOf(user);
+      if (userPos > -1) {
+        this.typingUser = [
+          ...this.typingUser.slice(0, userPos),
+          ...this.typingUser.slice(userPos + 1),
+        ];
+      }
+      this.server
+        .to('conversation ' + data.conversationId.toString())
+        .emit('someoneTyping', this.typingUser);
+      return { message: RES_MESSAGE.SUCCESS };
+    }
+    return { message: RES_MESSAGE.FAILED };
+  }
+
+  @SubscribeMessage('handleNewGlobalPost')
+  async handleNewGlobalPost(@MessageBody() data: Post) {
+    if (data) {
+      const result = await this.postService.findPostDetail(data.id);
+      this.server.emit('newGlobalPost', result);
       return { message: RES_MESSAGE.SUCCESS };
     }
     return { message: RES_MESSAGE.FAILED };
