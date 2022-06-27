@@ -41,6 +41,30 @@ export class PostService extends BaseService<Post> {
     };
   }
 
+  // async getGlobalPost(
+  //   query: MessageQueryDto,
+  // ): Promise<IMessagePaginate> {
+  //   const take = query.take || 15;
+  //   const page = query.page || 1;
+  //   const skipSocket = query.skipSocket || 0;
+  //   const skip = (page - 1) * take + skipSocket;
+
+  //   const [result, total] = await this.repository
+  //     .createQueryBuilder('post')
+  //     .leftJoinAndSelect('post.author', 'author')
+  //     .leftJoinAndSelect('post.votes', 'votes')
+  //     .leftJoinAndSelect('post.comments', 'comments')
+  //     .orderBy('post.createdAt', 'DESC')
+  //     .skip(skip)
+  //     .take(take)
+  //     .getManyAndCount();
+
+  //   return {
+  //     data: result,
+  //     count: total,
+  //   };
+  // }
+
   async findPostDetail(id: number): Promise<Post> {
     const result = await this.repository.findOne({
       where: [{ id: id }],
