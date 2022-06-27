@@ -15,6 +15,8 @@ import { ConversationsService } from 'src/conversations/conversations.service';
 import { AuthService } from 'src/auth/auth.service';
 import { RES_MESSAGE } from 'src/common/constant';
 import { User } from 'src/users/entities/user.entity';
+import { Post } from 'src/posts/entities/post.entity';
+import { PostService } from 'src/posts/post.service';
 
 class HandleTyping {
   conversationId: number;
@@ -40,6 +42,7 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly eventService: EventService,
     private readonly authService: AuthService,
+    private readonly postService: PostService,
     private readonly messageService: MessagesService,
     private readonly participateService: ParticipantsService,
     private readonly conversationService: ConversationsService,
@@ -174,6 +177,16 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.server
         .to('conversation ' + data.conversationId.toString())
         .emit('someoneTyping', this.typingUser);
+      return { message: RES_MESSAGE.SUCCESS };
+    }
+    return { message: RES_MESSAGE.FAILED };
+  }
+
+  @SubscribeMessage('handleNewGlobalPost')
+  async handleNewGlobalPost(@MessageBody() data: Post) {
+    if (data) {
+      const result = await this.postService.findPostDetail(data.id);
+      this.server.emit('newGlobalPost', result);
       return { message: RES_MESSAGE.SUCCESS };
     }
     return { message: RES_MESSAGE.FAILED };
