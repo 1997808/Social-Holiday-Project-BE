@@ -16,12 +16,18 @@ import { VotepostsModule } from './voteposts/voteposts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { EventModule } from './event/event.module';
 import { VotecommentsModule } from './votecomments/votecomments.module';
-
+console.log(
+  process.env.DB_HOST,
+  process.env.DB_PORT,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  process.env.DB_DATABASE,
+);
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
+      host: 'postgres',
       port: parseInt(<string>process.env.DB_PORT),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
