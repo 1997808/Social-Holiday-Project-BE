@@ -10,7 +10,7 @@ COPY ["holiday-social-media-be/package.json", "./"]
 RUN npm install --legacy-peer-deps
 
 # add app
-COPY . .
+COPY ./holiday-social-media-be .
 EXPOSE 3000
 
 # start app
