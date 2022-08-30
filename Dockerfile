@@ -5,9 +5,9 @@ FROM node:lts-slim
 WORKDIR /app
 
 # install app dependencies
-COPY ["holiday-social-media-be/package.json", "./"]
+COPY holiday-social-media-be/package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm ci --legacy-peer-deps && npm cache clean --force
 
 # add app
 COPY ./holiday-social-media-be .

@@ -1,0 +1,29 @@
+FROM node:lts-slim AS builder
+# Add a work directory
+WORKDIR /app
+
+# Cache and Install dependencies
+COPY holiday-social-media-be/package.json ./
+# COPY holiday-social-media-be/package-lock.json ./
+RUN npm install --force && npm cache clean --force
+
+# Copy app files
+COPY /holiday-social-media-be .
+
+# Build the app
+RUN npm run build
+
+###################
+# PRODUCTION
+###################
+
+FROM node:lts-slim as production
+WORKDIR /app
+
+# Copy built assets from builder
+COPY --chown=node:node --from=builder /app/node_modules ./node_modules
+COPY --chown=node:node --from=builder /app/dist ./dist
+
+# Start the server using the production build
+CMD ["node", "dist/main"]
+
